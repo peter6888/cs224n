@@ -27,3 +27,8 @@ Review Python knowledge
 SQuAd dataset - The Stanford Question Answering Dataset
   https://rajpurkar.github.io/SQuAD-explorer/
   
+ Related Classes
+ http://cs230.stanford.edu/syllabus.html
+ http://cs229.stanford.edu/syllabus.html
+ 
+  
