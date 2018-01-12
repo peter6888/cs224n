@@ -1,0 +1,6 @@
+€}q(Uq3_run]q(U
+dimVectorsqUnWordsqUdatasetqUvisualizeWordsqUvisualizeVecsqUvisualizeIdxqUCU
+covarianceq	Utokensq
+USUUU	startTimeqUVUtempqUwordVectorsqUiUcoordqeU	q2_neural]q(Uyour_sanity_checksqUforward_backward_propqUsanity_checkqeUq4_sentiment]q(UoutputConfusionMatrixqUmainqUplotRegVsAccuracyqUgetRegularizationValuesqUgetSentenceFeaturesqUgetArgumentsqUchooseBestModelqUaccuracyqUoutputPredictionsqeUutils]Uq3_word2vec]q(UgetNegativeSamplesqUskipgramqUtest_normalize_rowsq Utest_word2vecq!UnegSamplingCostAndGradientq"Uword2vec_sgd_wrapperq#UsoftmaxCostAndGradientq$Ucbowq%UnormalizeRowsq&eUutils.glove]q'(UDEFAULT_FILE_PATHq(UloadWordVectorsq)eU
+q1_softmax]q*(Utest_softmaxq+Usoftmaxq,Utest_softmax_basicq-eUq2_gradcheck]q.(hUgradcheck_naiveq/heUutils.treebank]q0UStanfordSentimentq1aU
+q2_sigmoid]q2(Utest_sigmoid_basicq3Usigmoid_gradq4Utest_sigmoidq5Usigmoidq6eUq3_sgd]q7(Uload_saved_paramsq8hUsave_paramsq9USAVE_PARAMS_EVERYq:hUsgdq;eu.
