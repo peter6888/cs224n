@@ -29,6 +29,6 @@ SQuAd dataset - The Stanford Question Answering Dataset
   
  Related Classes
  http://cs230.stanford.edu/syllabus.html
- http://cs229.stanford.edu/syllabus.html
+ http://cs229.stanford.edu/syllabus.html or https://see.stanford.edu/Course/CS229 
  
   
