@@ -15,7 +15,7 @@ def normalizeRows(x):
     """
 
     ### YOUR CODE HERE
-    raise NotImplementedError
+    x = x / np.linalg.norm(x, axis=1, keepdims=True)
     ### END YOUR CODE
 
     return x
@@ -58,7 +58,12 @@ def softmaxCostAndGradient(predicted, target, outputVectors, dataset):
     """
 
     ### YOUR CODE HERE
-    raise NotImplementedError
+    y_hat = softmax(np.dot(predicted, outputVectors.T)) # q3 (a) equation (4)
+    cost = -np.log(y_hat[target]) # q3 (b) equation (5)
+    y_hat_minus_y = y_hat
+    y_hat_minus_y[target] = y_hat_minus_y[target] - 1
+    grad     = np.dot(y_hat_minus_y.reshape(-1,1), predicted.reshape(1,-1))
+    gradPred = np.dot(y_hat_minus_y.reshape(1,-1), outputVectors).flatten()
     ### END YOUR CODE
 
     return cost, gradPred, grad
@@ -96,7 +101,15 @@ def negSamplingCostAndGradient(predicted, target, outputVectors, dataset,
     indices.extend(getNegativeSamples(target, dataset, K))
 
     ### YOUR CODE HERE
-    raise NotImplementedError
+    y_hat = softmax(np.dot(predicted, outputVectors.T)) # q3 (a) equation (4)
+    samples = outputVectors[indices]
+    sigmoid_u_v = sigmoid(-np.dot(samples, predicted.reshape(-1, 1)))
+    sigmoid_predicted_target = sigmoid(np.dot(predicted, outputVectors[target]))
+    cost = -1.0 * np.log(sigmoid_predicted_target) - np.sum(np.log(sigmoid_u_v))
+    y_hat_minus_y = y_hat
+    y_hat_minus_y[target] = y_hat_minus_y[target] - 1
+    grad     = np.dot(y_hat_minus_y.reshape(-1,1), predicted.reshape(1,-1))
+    gradPred = np.dot(y_hat_minus_y.reshape(1,-1), outputVectors).flatten()
     ### END YOUR CODE
 
     return cost, gradPred, grad
@@ -131,7 +144,7 @@ def skipgram(currentWord, C, contextWords, tokens, inputVectors, outputVectors,
     gradOut = np.zeros(outputVectors.shape)
 
     ### YOUR CODE HERE
-    raise NotImplementedError
+    #raise NotImplementedError
     ### END YOUR CODE
 
     return cost, gradIn, gradOut
@@ -155,7 +168,7 @@ def cbow(currentWord, C, contextWords, tokens, inputVectors, outputVectors,
     gradOut = np.zeros(outputVectors.shape)
 
     ### YOUR CODE HERE
-    raise NotImplementedError
+    #raise NotImplementedError
     ### END YOUR CODE
 
     return cost, gradIn, gradOut
