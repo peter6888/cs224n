@@ -112,9 +112,9 @@ def negSamplingCostAndGradient(predicted, target, outputVectors, dataset,
     gradPred = np.dot(gradZ.T, u_samples).flatten() #shape==(D,1)
     gradu    = np.dot(gradZ.reshape(-1,1), Vc.reshape(1, -1))  #shape==(K+1,D)
     grad = np.zeros_like(U) #shape==(C, D)
-    #grad[indices] += gradu #because some indices will appear twice, can't use this
+    #grad[indices] += gradu #because some indices will appear more than one time, can't use this
     for k in range(K+1):
-        grad[indices[k]] += gradu[k,:]
+       grad[indices[k]] += gradu[k,:]
     ### END YOUR CODE
 
     return cost, gradPred, grad
