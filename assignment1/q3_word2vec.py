@@ -101,15 +101,20 @@ def negSamplingCostAndGradient(predicted, target, outputVectors, dataset,
     indices.extend(getNegativeSamples(target, dataset, K))
 
     ### YOUR CODE HERE
-    y_hat = softmax(np.dot(predicted, outputVectors.T)) # q3 (a) equation (4)
-    samples = outputVectors[indices]
-    sigmoid_u_v = sigmoid(-np.dot(samples, predicted.reshape(-1, 1)))
-    sigmoid_predicted_target = sigmoid(np.dot(predicted, outputVectors[target]))
-    cost = -1.0 * np.log(sigmoid_predicted_target) - np.sum(np.log(sigmoid_u_v))
-    y_hat_minus_y = y_hat
-    y_hat_minus_y[target] = y_hat_minus_y[target] - 1
-    grad     = np.dot(y_hat_minus_y.reshape(-1,1), predicted.reshape(1,-1))
-    gradPred = np.dot(y_hat_minus_y.reshape(1,-1), outputVectors).flatten()
+    U  = outputVectors     #U.shape==(C, D)
+    u_samples = U[indices] # [uo, u1, ..., uK].shape==(K+1, D)
+    Vc = predicted         # Vc.shape==(D,1)
+    neg_sample_labels = np.array([1] + [-1 for k in range(K)])
+    z = np.dot(u_samples, Vc) * neg_sample_labels #z.shape==(K+1, 1)
+    probs = sigmoid(z)
+    cost = -np.sum(np.log(probs)) #equation (6)
+    gradZ    = neg_sample_labels * (probs-1) #gradZ.shape==(K+1, 1)
+    gradPred = np.dot(gradZ.T, u_samples).flatten() #shape==(D,1)
+    gradu    = np.dot(gradZ.reshape(-1,1), Vc.reshape(1, -1))  #shape==(K+1,D)
+    grad = np.zeros_like(U) #shape==(C, D)
+    #grad[indices] += gradu #because some indices will appear twice, can't use this
+    for k in range(K+1):
+        grad[indices[k]] += gradu[k,:]
     ### END YOUR CODE
 
     return cost, gradPred, grad
@@ -144,7 +149,14 @@ def skipgram(currentWord, C, contextWords, tokens, inputVectors, outputVectors,
     gradOut = np.zeros(outputVectors.shape)
 
     ### YOUR CODE HERE
-    #raise NotImplementedError
+    centerIndex = tokens[currentWord]
+    predicted = inputVectors[centerIndex, :]
+    for contextWord in contextWords:
+        target = tokens[contextWord]
+        currentCost, currentGradPred, currentGrad = word2vecCostAndGradient(predicted, target, outputVectors, dataset)
+        cost += currentCost
+        gradIn[centerIndex, :] += currentGradPred
+        gradOut += currentGrad
     ### END YOUR CODE
 
     return cost, gradIn, gradOut
