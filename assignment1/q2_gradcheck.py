@@ -85,7 +85,7 @@ def your_sanity_checks():
     print "Running your sanity checks..."
     ### YOUR CODE HERE
     linear = lambda x: (2*x, 2*x/x)
-    gradcheck_naive(linear, np.array(123))
+    # gradcheck_naive(linear, np.array(123))
     ### END YOUR CODE
 
 

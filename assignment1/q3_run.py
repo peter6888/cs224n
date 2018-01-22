@@ -33,10 +33,10 @@ wordVectors = np.concatenate(
        dimVectors, np.zeros((nWords, dimVectors))),
     axis=0)
 wordVectors = sgd(
-    lambda vec: word2vec_sgd_wrapper(cbow, tokens, vec, dataset, C,
-        negSamplingCostAndGradient),
-    #lambda vec: word2vec_sgd_wrapper(skipgram, tokens, vec, dataset, C,
+    #lambda vec: word2vec_sgd_wrapper(cbow, tokens, vec, dataset, C,
     #    negSamplingCostAndGradient),
+    lambda vec: word2vec_sgd_wrapper(skipgram, tokens, vec, dataset, C,
+        negSamplingCostAndGradient),
     wordVectors, 0.3, 40000, None, True, PRINT_EVERY=10)
 # Note that normalization is not called here. This is not a bug,
 # normalizing during training loses the notion of length.

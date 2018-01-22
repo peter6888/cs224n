@@ -1,2 +1,4 @@
 .env/*
 *.pyc
+utils/*.pyc
+save*.npy
