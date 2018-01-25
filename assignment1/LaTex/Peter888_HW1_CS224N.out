@@ -1,0 +1,28 @@
+\BOOKMARK [0][-]{chapter.1}{Problem 1: Softmax \(10 pts\)}{}% 1
+\BOOKMARK [1][-]{section.1.1}{\(a\) \040Softmax Invariance to Constant \(5 pts\)}{chapter.1}% 2
+\BOOKMARK [1][-]{section.1.2}{\(b\) \040Softmax Coding \(5 pts\)}{chapter.1}% 3
+\BOOKMARK [0][-]{chapter.2}{Problem 2: Neural Network Basics \(30 pts\)}{}% 4
+\BOOKMARK [1][-]{section.2.1}{\(a\) \040Sigmoid Gradient \(3 pts\)}{chapter.2}% 5
+\BOOKMARK [1][-]{section.2.2}{\(b\) \040Softmax Gradient w/ Cross Entropy Loss \(3 pts\)}{chapter.2}% 6
+\BOOKMARK [1][-]{section.2.3}{\(c\) \040One Hidden Layer Gradient \(6 pts\)}{chapter.2}% 7
+\BOOKMARK [1][-]{section.2.4}{\(d\) \040No. Parameters \(2 pts\)}{chapter.2}% 8
+\BOOKMARK [1][-]{section.2.5}{\(e\) \040Sigmoid Activation Code \(4 pts\)}{chapter.2}% 9
+\BOOKMARK [1][-]{section.2.6}{\(f\) \040Gradient Check Code \(4 pts\)}{chapter.2}% 10
+\BOOKMARK [1][-]{section.2.7}{\(g\) \040Neural Net Code \(8 pts\)}{chapter.2}% 11
+\BOOKMARK [0][-]{chapter.3}{Problem 3: Word2Vec \(40 pts + 2 bonus\)}{}% 12
+\BOOKMARK [1][-]{section.3.1}{\(a\) \040Context Word Gradients \(3 pts\)}{chapter.3}% 13
+\BOOKMARK [1][-]{section.3.2}{\(b\) \040Output Word Gradients \(3 pts\)}{chapter.3}% 14
+\BOOKMARK [1][-]{section.3.3}{\(c\) \040Repeat Gradients with Negative Sampling Loss \(6 pts\)}{chapter.3}% 15
+\BOOKMARK [1][-]{section.3.4}{\(d\) \040Skip-gram and CBOW Gradients \(8 pts\)}{chapter.3}% 16
+\BOOKMARK [1][-]{section.3.5}{\(e\) \040Word2Vec with SGD Code \(12 pts\)}{chapter.3}% 17
+\BOOKMARK [1][-]{section.3.6}{\(f\) \040SGD Code \(4 pts\)}{chapter.3}% 18
+\BOOKMARK [1][-]{section.3.7}{\(g\) \040Train Vectors on Stanford Sentiment Treebank \(4 pts\)}{chapter.3}% 19
+\BOOKMARK [1][-]{section.3.8}{\(h\) \040CBOW \(Extra Credit: 2 pts\)}{chapter.3}% 20
+\BOOKMARK [0][-]{chapter.4}{Problem 4: Sentiment Analysis \(20 pts\)}{}% 21
+\BOOKMARK [1][-]{section.4.1}{\(a\) \040Sentence Features \(2 pts\)}{chapter.4}% 22
+\BOOKMARK [1][-]{section.4.2}{\(b\) \040Purpose of Regularization \(1 pt\)}{chapter.4}% 23
+\BOOKMARK [1][-]{section.4.3}{\(c\) \040Purpose of Regularization \(1 pt\)}{chapter.4}% 24
+\BOOKMARK [1][-]{section.4.4}{\(d\) \040Pretrained vs New Vectors \(3 pts\)}{chapter.4}% 25
+\BOOKMARK [1][-]{section.4.5}{\(e\) \040Accuracy vs. Regularization \(4 pts\)}{chapter.4}% 26
+\BOOKMARK [1][-]{section.4.6}{\(f\) \040Confusion Matrix \(4 pts\)}{chapter.4}% 27
+\BOOKMARK [1][-]{section.4.7}{\(g\) \040Error Types \046 Features \(4 pts\)}{chapter.4}% 28
