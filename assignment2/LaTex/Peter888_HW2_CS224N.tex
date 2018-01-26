@@ -1,0 +1,289 @@
+\documentclass[fleqn]{MJD}
+
+\usepackage{cancel}
+\usepackage{cleveref}
+\usepackage{titlesec}
+\usepackage{hyperref}
+%\colorsections
+%\bluelinks
+\newcommand{\problem}[1]{\chapter{Problem #1}}
+\newcommand{\subproblem}[2]{\section{(#1)~ #2}}
+\newcommand{\subsubproblem}[2]{\subsection{ #1)~ #2}}
+\newcommand{\U}{\cup}
+\renewcommand{\S}{\mathcal{S}}
+\renewcommand{\s}{\subset}
+\renewcommand{\equiv}{\Leftrightarrow}
+\newcommand{\0}{\emptyset}
+\newcommand{\imp}{\Rightarrow}
+\newcommand{\Usum}{\bigcup\limits_{i=1}^\infty}
+\newcommand{\intsum}{\bigcup\limits_{i=1}^\infty}
+\newcommand{\infsum}{\sum\limits_{i=1}^\infty}
+\newcommand{\sets}{\{A_1, A_2 \dots\} }
+\newcommand{\nsets}{\{A_1, \dots, A_n \} }
+
+\titleformat{\chapter}[display]
+  {\normalfont\bfseries}{}{0pt}{\LARGE}
+  
+\graphicspath{ {../} }
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+\lstset{language=Python}
+\titleAT[CS 224N: Assignment 2]{Peter888@stanford.edu}
+%-------------------------------------
+\problem{1: Tensorflow Softmax (25 points)}
+%-------------------------------------
+
+%----------------------
+\subproblem{a}{Implement Softmax use Tensorflow (5 points, coding)}
+\noindent\textbf{Answer:} \\
+\noindent See code: $\sim$\verb|/q1_softmax.py|.
+
+\vskip5em
+
+%----------------------
+\subproblem{b}{Implement Cross-Entropy use Tensorflow (5 points, coding)}
+\noindent \textbf{Answer:} \\
+
+\noindent See code: $\sim$\verb|/q1_softmax.py|.
+
+\vskip5em
+%----------------------
+\subproblem{c}{Tensorflow Placeholder and Feed Dictionary (5 points, coding/written)}
+\noindent \textbf{Answer:} \\
+
+\noindent See code: $\sim$\verb|/q1_classifier.py|. 
+\vskip3em
+\textit {Explanation:}
+
+\vskip5em
+\newpage
+
+%----------------------
+\subproblem{d}{Implement Classifier (5 points, coding)}
+\noindent\textbf{Answer:} \\
+\noindent See code: $\sim$\verb|/q1_classifier.py|.
+
+\vskip5em
+%----------------------
+\subproblem{e}{Implement Model (5 points, coding/written)}
+\noindent\textbf{Answer:} \\
+\noindent See code: $\sim$\verb|/q1_classifier.py|. 
+\vskip3em
+\textit {Explanation:}
+
+\vskip5em
+%-------------------------------------
+\problem{2: Neural Transition-Based Dependency Parsing (50 points + 2 bonus points)}
+%-------------------------------------
+
+%----------------------
+\subproblem{a}{Dependency Parsing (6 points, written)}
+
+\noindent \textbf{Answer:}
+
+\begin{align}
+	%
+	\frac{d\sigma(x)}{dx}  &= \frac{d}{dx}(\frac{1}{1 + e^{-x}}) \nonumber \\
+	%
+	&= -\frac{1}{(1+e^{-x})^2}\frac{d}{dx}(1+e^{-x})=\frac{-1}{(1+e^{-x})^{2}}\frac{d}{dx}e^{-x}=\frac{-1}{(1+e^{-x})^{2}}\frac{-1}{(e^{x})^{2}}\frac{d}{dx}e^{x} \nonumber \\
+	%
+	&=\frac{-1}{(1+e^{-x})^2}\frac{-1}{(e^{x})^{2}}e^{x}=\frac{1}{(1+e^{-x})^{2}(e^{x})^{2}}e^{x} \nonumber \\
+	%
+	&= \frac{e^{-x}}{(1+e^{-x})^2} =\frac{1+e^{-x}-1}{(1+e^{-x})^2} = \frac{1}{1+e^{-x}}-\frac{1}{(1+e^{-x})^{2}}\nonumber \\
+	%
+	&=(\frac{1}{1+e^{-x}})(1-\frac{1}{1+e^{-x}}) \nonumber \\
+	%
+	&= \sigma(x) (1 - \sigma(x)) \nonumber 
+\end{align}
+
+
+%----------------------
+\newpage
+\subproblem{b}{How many steps (2 points, written)}
+\label{prob:2b}
+\noindent \textbf{Answer:} 
+
+\textit {With above equations,}
+\begin{align}
+	\frac{\partial CE(\bm{\theta})}{\partial \bm{\theta}} = -\mathbf{y} + \hat{\mathbf{y}} \nonumber
+\end{align}
+\vskip4em
+
+\newpage
+
+\subproblem{c}{Parser Step (6 points, coding)}
+
+\noindent See code: $\sim$\verb|/q2_parser_transitions.py|.
+\vskip4em
+%----------------------
+\subproblem{d}{Parser Transitions (6 points, coding)}
+
+\noindent See code: $\sim$\verb|/q2_parser_transitions.py|.
+\vskip4em
+%----------------------
+
+\subproblem{e}{Xavier Initialization (4 points, coding)}
+
+\noindent See code: $\sim$\verb|/q2_initialization.py|.
+
+%----------------------
+\subproblem{f}{Dropout (2 points, written)}
+\noindent \textbf{Answer:} 
+\vskip4em
+
+%----------------------
+\subproblem{g}{Adam Optimizer (4 points, written)}
+\subsubproblem{i}{Momentum}
+\noindent \textbf{Answer:} 
+\vskip4em
+\subsubproblem{ii}{Adaptive Learning Rates}
+\noindent \textbf{Answer:} 
+\vskip4em
+
+%----------------------
+\subproblem{h}{Parser Model (20 points, coding/written)}
+\noindent \textbf{Answer:} 
+\noindent See code: $\sim$\verb|/q2_parser_model.py|.
+\noindent \textit{Report the best UAS} \\
+\noindent \textit{List of predicted labels} \\
+\vskip4em
+
+%----------------------
+\subproblem{i}{Bonus (2 points, coding/written)}
+\noindent \textbf{Answer:} 
+\vskip4em
+
+\newpage
+%-------------------------------------
+\problem{3: Recurrent Neural Networks (25 points + 1 bonus point)}
+%-------------------------------------
+
+%----------------------
+\subproblem{a}{ Perplexity (4 points, written)}
+\subsubproblem{i} {Derive Perplexity (2 points)}
+\noindent \textbf{Answer:} \\
+\vskip2em
+\subsubproblem{ii} {Equivalent (1 point)}
+\noindent \textbf{Answer:} \\
+\vskip2em
+\subsubproblem{iii} {Perplexity for a single word (1 point)}
+\noindent \textbf{Answer:} \\
+\vskip2em
+
+\vskip5em
+
+
+\newpage
+%----------------------
+\subproblem{b}{Gradients on Single Point (7 points, written)}
+
+\noindent \textbf{Answer:} 
+
+\begin{align}
+	\frac{\partial J}{\partial \bm{v}_{c}} &= %
+		\frac{\partial}{\partial \bm{v}_{c}} ( (-log(\sigma(\bm{u}_{o}^{T} \bm{v}_{c}))) - % 
+			\sum\limits_{k=1}^{K} log(\sigma(- \bm{u}_{k}^{T} \bm{v}_{c})) )\nonumber \\
+		%
+		&= %
+		- \frac{\partial}{\partial \bm{v}_{c}} (log(\sigma(\bm{u}_{o}^{T} \bm{v}_{c}))) - % 
+		   \sum\limits_{k=1}^{K} \frac{\partial}{\partial \bm{v}_{c}} log(\sigma(- \bm{u}_{k}^{T} \bm{v}_{c})) \nonumber \\
+		&= %
+		\frac{-1}{ \sigma(\bm{u}_{o}^{T} \bm{v}_{c})} (\frac{\partial}{\partial \bm{v}_{c}} \sigma(\bm{u}_{o}^{T} \bm{v}_{c})) - % 
+		   \sum\limits_{k=1}^{K} \frac{1}{\sigma(- \bm{u}_{k}^{T} \bm{v}_{c})} \frac{\partial}{\partial \bm{v}_{c}} \sigma(- \bm{u}_{k}^{T} \bm{v}_{c}) \nonumber \\
+		&= %
+		-(1-\sigma(\bm{u}_{o}^{T} \bm{v}_{c})) \bm{u}_{o} - % 
+		   \sum\limits_{k=1}^{K} (1- \sigma(- \bm{u}_{k}^{T} \bm{v}_{c})) (- \bm{u}_{k}) \nonumber \\
+		&= %
+		(\sigma(\bm{u}_{o}^{T} \bm{v}_{c}) - 1) \bm{u}_{o} - % 
+		   \sum\limits_{k=1}^{K} ( \sigma(- \bm{u}_{k}^{T} \bm{v}_{c}) - 1) \bm{u}_{k} \nonumber 
+		%
+\end{align}
+
+\begin{align}
+	\frac{\partial J}{\partial \bm{u}_{o}} &= %
+		\frac{\partial}{\partial \bm{u}_{o}} ( (-log(\sigma(\bm{u}_{o}^{T} \bm{v}_{c}))) - % 
+			\sum\limits_{k=1}^{K} log(\sigma(- \bm{u}_{k}^{T} \bm{v}_{c})) )\nonumber \\
+		&= %
+		\frac{-1}{ \sigma(\bm{u}_{o}^{T} \bm{v}_{c})} (\frac{\partial}{\partial \bm{u}_{o}} \sigma(\bm{u}_{o}^{T} \bm{v}_{c})) - 0 \nonumber \\
+		&= %
+		-(1- \sigma(\bm{u}_{o}^{T} \bm{v}_{c}))\frac{\partial}{\partial \bm{u}_{o}}(\bm{u}_{o}^{T} \bm{v}_{c}) \nonumber \\
+		&= (\sigma(\bm{u}_{o}^{T} \bm{v}_{c})-1)\bm{u}_{o} \nonumber \\
+	       %
+	\frac{\partial J}{\partial \bm{u}_{k}} &= %
+		\frac{\partial}{\partial \bm{u}_{k}} ( (-log(\sigma(\bm{u}_{o}^{T} \bm{v}_{c}))) - % 
+			\sum\limits_{k=1}^{K} log(\sigma(- \bm{u}_{k}^{T} \bm{v}_{c})) )\nonumber \\
+		&= %
+		0 - \frac{\partial}{\partial \bm{u}_{k}} log(\sigma(-\bm{u}_{k}^{T} \bm{v}_{c})) \nonumber \\
+		&= -\frac{1}{\sigma(-\bm{u}_{k}^{T} \bm{v}_{c})}\sigma(-\bm{u}_{k}^{T} \bm{v}_{c})(1-\sigma(-\bm{u}_{k}^{T} \bm{v}_{c})) %
+			\frac{\partial}{\partial \bm{u}_{k}}(-\bm{u}_{k}^{T} \bm{v}_{c}) \nonumber \\
+		&= %
+		-(\sigma(-\bm{u}_{k}^{T} \bm{v}_{c}) - 1) \bm{v}_{c}) \nonumber \\
+		&= (\sigma(\bm{u}_{k}^{T} \bm{v}_{c})  \bm{v}_{c} ,\mbox{  for all } k \neq o \nonumber
+\end{align}
+
+\vskip3em
+
+
+\noindent Negative sampling is faster than softmax-CE loss at speed up ratio $\frac{V}{K}$, where V is all words in dictionary count, and K is the sampling size. 
+
+
+\vskip5em
+
+\newpage
+%----------------------
+\subproblem{c}{Gradients (7 points, written)}
+\noindent \textbf{Answer:} \\
+\vskip5em
+%----------------------
+\subproblem{d}{How Many Operations for Single Timestep (3 points, written)}
+\noindent \textbf{Answer:} \\
+
+\noindent Derivatives for the skip-gram model
+\begin{align}
+	%
+	\frac{J_{skip-gram}(word_{c-m \dots c+m})}{\partial \bm{v}_{c}} &= %
+		\sum\limits_{-m \leq j \leq m, j \ne 0} \frac{\partial F(\bm{w}_{c+j}, \bm{v}_{c})}{\partial \bm{v}_{c}} \nonumber \\
+	%
+	\frac{J_{skip-gram}(word_{c-m \dots c+m})}{\partial \bm{v}_{j}} &= 0, \forall j\ne c \nonumber \\
+	%
+	\frac{J_{skip-gram}(word_{c-m \dots c+m})}{\partial \bm{U}} &= %
+		\sum\limits_{-m \leq j \leq m, j \ne 0} \frac{\partial F(\bm{w}_{c+j}, \bm{v}_{c})}{\partial \bm{U}} \nonumber 
+\end{align}
+
+
+\noindent Derivatives for the CBOW model
+\begin{align}
+	%
+	\frac{J_{CBOW}(word_{c-m \dots c+m})}{\partial \bm{v}_{j}} &= %
+		\frac{\partial F(\bm{w}_{c}, \hat{\bm{v}})}{\partial \hat{\bm{v}}}, \forall (j \ne c) \in \{c-m \dots c+m\}  \nonumber \\
+	%
+	\frac{J_{CBOW}(word_{c-m \dots c+m})}{\partial \bm{v}_{j}} &= 0, %
+		\forall (j \ne c) \notin \{c-m \dots c+m\}  \nonumber \\
+	%
+	\frac{J_{CBOW}(word_{c-m \dots c+m})}{\partial \bm{U}} &= %
+		\frac{\partial F(\bm{w}_{c}, \hat{\bm{v}})}{\partial \bm{U}} \nonumber
+\end{align}
+
+\vskip5em
+
+
+\newpage
+%----------------------
+\subproblem{e}{How Many Operations for Entire Sequence (3 points, written)}
+
+\noindent \textbf{Answer:}  See code: $\sim$\verb|/q3_word2vec.py|.
+
+%----------------------
+\subproblem{f}{Which largest? Term RNN? (1 point, written)}
+
+\noindent \textbf{Answer:}  See code: $\sim$\verb|/q3_sgd.py|.
+
+%----------------------
+\subproblem{g}{Bonus (1 point, written)}
+\noindent \textbf{Answer:} \\
+
+\textit {Explain: In the Word Vectors image, words clustered at similarity, such as the emotion words "amazing", "wonderful" and "great" are very close to each other. The word "well" a little further but still close to "amazing"  , the connection characters and words "the" "a" "," etc are spread around alone.
+}
+
+\end{document}
