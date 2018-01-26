@@ -29,15 +29,13 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{document}
 \lstset{language=Python}
-
-\titleAT[CS 224N: Assignment 1]{Peter Li}
-
+\titleAT[CS 224N: Assignment 1]{Peter888@stanford.edu}
 %-------------------------------------
-\problem{1: Softmax (10 pts)}
+\problem{1: Softmax (10 points)}
 %-------------------------------------
 
 %----------------------
-\subproblem{a}{Softmax Invariance to Constant (5 pts)}
+\subproblem{a}{Softmax Invariance to Constant (5 points)}
 \noindent\textbf{Answer:} \\
 \begin{equation}
 \forall{i}, \nonumber
@@ -57,17 +55,17 @@ softmax(x) = softmax(x + c) \nonumber
 \vskip5em
 
 %----------------------
-\subproblem{b}{Softmax Coding (5 pts)}
+\subproblem{b}{Softmax Coding (5 points)}
 \noindent \textbf{Answer:} \\
 
 \noindent See code: $\sim$\verb|/q1_softmax.py|.
 
 %-------------------------------------
-\problem{2: Neural Network Basics (30 pts)}
+\problem{2: Neural Network Basics (30 points)}
 %-------------------------------------
 
 %----------------------
-\subproblem{a}{Sigmoid Gradient (3 pts)}
+\subproblem{a}{Sigmoid Gradient (3 points)}
 
 \noindent \textbf{Answer:}
 
@@ -89,7 +87,7 @@ softmax(x) = softmax(x + c) \nonumber
 
 %----------------------
 \newpage
-\subproblem{b}{Softmax Gradient w/ Cross Entropy Loss (3 pts)}
+\subproblem{b}{Softmax Gradient w/ Cross Entropy Loss (3 points)}
 \label{prob:2b}
 \noindent \textbf{Answer:} 
 \begin{equation}
@@ -144,7 +142,7 @@ softmax(x) = softmax(x + c) \nonumber
 
 \newpage
 
-\subproblem{c}{One Hidden Layer Gradient (6 pts)}
+\subproblem{c}{One Hidden Layer Gradient (6 points)}
 
 \noindent \textbf{Answer:} \\
 \\
@@ -172,7 +170,7 @@ softmax(x) = softmax(x + c) \nonumber
 \end{align}
 
 %----------------------
-\subproblem{d}{No. Parameters (2 pts)}
+\subproblem{d}{No. Parameters (2 points)}
 
 \noindent \textbf{Answer:} \\
 \\
@@ -183,17 +181,17 @@ softmax(x) = softmax(x + c) \nonumber
 	(D_{x} \times H) + H + (H \times D_{y}) + D_{y} \nonumber
 \end{align}
 
-\subproblem{e}{Sigmoid Activation Code (4 pts)}
+\subproblem{e}{Sigmoid Activation Code (4 points)}
 
 \noindent See code: $\sim$\verb|/q2_sigmoid.py|.
 
 %----------------------
-\subproblem{f}{Gradient Check Code (4 pts)}
+\subproblem{f}{Gradient Check Code (4 points)}
 
 \noindent See code: $\sim$\verb|/q2_gradcheck.py|.
 
 %----------------------
-\subproblem{g}{Neural Net Code (8 pts)}
+\subproblem{g}{Neural Net Code (8 points)}
 
 \noindent See code: $\sim$\verb|/q2_neural.py|.
 
@@ -202,11 +200,11 @@ softmax(x) = softmax(x + c) \nonumber
 \newpage
 
 %-------------------------------------
-\problem{3: Word2Vec (40 pts + 2 bonus)}
+\problem{3: Word2Vec (40 points + 2 bonus)}
 %-------------------------------------
 
 %----------------------
-\subproblem{a}{Context Word Gradients (3 pts)}
+\subproblem{a}{Context Word Gradients (3 points)}
 
 \noindent \textbf{Answer:} \\
 
@@ -221,7 +219,7 @@ softmax(x) = softmax(x + c) \nonumber
 	 		\bm{U} (\hat{\bm{y}} - \bm{y}) \nonumber
 \end{align}
 
-\subproblem{b}{Output Word Gradients (3 pts)}
+\subproblem{b}{Output Word Gradients (3 points)}
 
 \noindent \textbf{Answer:} \\
 
@@ -238,7 +236,7 @@ softmax(x) = softmax(x + c) \nonumber
 
 \newpage
 %----------------------
-\subproblem{c}{Repeat Gradients with Negative Sampling Loss (6 pts)}
+\subproblem{c}{Repeat Gradients with Negative Sampling Loss (6 points)}
 
 \noindent \textbf{Answer:} 
 
@@ -294,7 +292,7 @@ softmax(x) = softmax(x + c) \nonumber
 
 \newpage
 %----------------------
-\subproblem{d}{Skip-gram and CBOW Gradients (8 pts)}
+\subproblem{d}{Skip-gram and CBOW Gradients (8 points)}
 \noindent \textbf{Answer:} \\
 
 \noindent Derivatives for the skip-gram model
@@ -328,17 +326,17 @@ softmax(x) = softmax(x + c) \nonumber
 
 \newpage
 %----------------------
-\subproblem{e}{Word2Vec with SGD Code (12 pts)}
+\subproblem{e}{Word2Vec with SGD Code (12 points)}
 
 \noindent \textbf{Answer:}  See code: $\sim$\verb|/q3_word2vec.py|.
 
 %----------------------
-\subproblem{f}{SGD Code (4 pts)}
+\subproblem{f}{SGD Code (4 points)}
 
 \noindent \textbf{Answer:}  See code: $\sim$\verb|/q3_sgd.py|.
 
 %----------------------
-\subproblem{g}{Train Vectors on Stanford Sentiment Treebank (4 pts)}
+\subproblem{g}{Train Vectors on Stanford Sentiment Treebank (4 points)}
 \noindent \textbf{Answer:} \\
 
 \textit {Explain: In the Word Vectors image, words clustered at similarity, such as the emotion words "amazing", "wonderful" and "great" are very close to each other. The word "well" a little further but still close to "amazing"  , the connection characters and words "the" "a" "," etc are spread around alone.
@@ -352,7 +350,7 @@ softmax(x) = softmax(x + c) \nonumber
 
 
 %----------------------
-\subproblem{h}{CBOW (Extra Credit: 2 pts)}
+\subproblem{h}{CBOW (Extra Credit: 2 points)}
 
 \noindent \textbf{Answer:}  See code: $\sim$\verb|/q3_sgd.py|. \\
 
@@ -361,16 +359,16 @@ softmax(x) = softmax(x + c) \nonumber
 
 \newpage
 %-------------------------------------
-\problem{4: Sentiment Analysis (20 pts)}
+\problem{4: Sentiment Analysis (20 points)}
 %-------------------------------------
 
 %----------------------
-\subproblem{a}{Sentence Features (2 pts)}
+\subproblem{a}{Sentence Features (2 points)}
 
 \noindent \textbf{Answer:}  See code: $\sim$\verb|/q4_sentiment.py|.
 
 %----------------------
-\subproblem{b}{Purpose of Regularization (1 pt)}
+\subproblem{b}{Purpose of Regularization (1 points)}
 \noindent \textbf{Answer:} \\
 
 \noindent Purpose of regularization to constrain parameters, to avoid overfit on training dataset. And this can increase the generalizability of the model for new data.
@@ -381,7 +379,7 @@ softmax(x) = softmax(x + c) \nonumber
 
 
 %----------------------
-\subproblem{c}{Purpose of Regularization (1 pt)}
+\subproblem{c}{Hyperparameter selection (2 points)}
 \noindent \textbf{Answer:}  See code: $\sim$\verb|/q4_sentiment.py|. \\
 
 \textit {The chooseBestModel code}
@@ -394,7 +392,7 @@ softmax(x) = softmax(x + c) \nonumber
 
 \newpage
 %----------------------
-\subproblem{d}{Pretrained vs New Vectors (3 pts)}
+\subproblem{d}{Pretrained vs Yourpoints Vectors (3 points)}
 
 \noindent \textbf{Answer:} \\
 
@@ -445,7 +443,7 @@ softmax(x) = softmax(x + c) \nonumber
 
 \newpage
 %----------------------
-\subproblem{e}{Accuracy vs. Regularization (4 pts)}
+\subproblem{e}{Accuracy vs. Regularization (4 points)}
 
 \noindent \textbf{Answer:}\\
 
@@ -459,7 +457,7 @@ softmax(x) = softmax(x + c) \nonumber
 
 \newpage
 %----------------------
-\subproblem{f}{Confusion Matrix (4 pts)}
+\subproblem{f}{Confusion Matrix (4 points)}
 
 \textbf{Answer:}\\
 
@@ -477,7 +475,7 @@ The larger number in diagonal the better. We can see the model hard to tell "neu
 \newpage 
 
 %----------------------
-\subproblem{g}{Error Types \& Features (4 pts)}
+\subproblem{g}{Error Types \& Features (4 points)}
 \noindent \textbf{Answer:} \\
 
 \begin{enumerate}
