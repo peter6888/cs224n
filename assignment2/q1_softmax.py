@@ -24,6 +24,10 @@ def softmax(x):
     """
 
     ### YOUR CODE HERE
+    row_max = tf.reduce_max(x, axis=1, keep_dims=True)
+    x_reduced_exp = tf.exp(x-row_max)
+    row_exp_sum = tf.reduce_sum(x_reduced_exp, axis=1, keep_dims=True)
+    out = tf.divide(x_reduced_exp, row_exp_sum)
     ### END YOUR CODE
 
     return out
@@ -54,6 +58,8 @@ def cross_entropy_loss(y, yhat):
     """
 
     ### YOUR CODE HERE
+    y_argmax = tf.argmax(y, axis=1)
+    out = [-tf.log(yhat[i][j]) for i,j in enumerate(y_argmax)]
     ### END YOUR CODE
 
     return out
@@ -95,6 +101,20 @@ def test_cross_entropy_loss_basic():
 
     print "Basic (non-exhaustive) cross-entropy tests pass"
 
+def test_softmax_boundary():
+    """
+    More softmax test
+    """
+    test1 = softmax(tf.constant(np.array([[1e+10, 1.01e+10], [1e+10, 1e+10]]), dtype=tf.float32))
+    with tf.Session() as sess:
+            test1 = sess.run(test1)
+            print(test1)
+    test_all_close("Softmax test 1", test1, np.array([[0, 1],
+                                                      [0.5, 0.5]]))
+
+    print "Boundary softmax tests pass\n"
+
 if __name__ == "__main__":
     test_softmax_basic()
-    test_cross_entropy_loss_basic()
+    test_softmax_boundary()
+    #test_cross_entropy_loss_basic()

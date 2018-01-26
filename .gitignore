@@ -6,3 +6,4 @@ Tensorflow_LiveDemo/visualization/*
 Tensorflow_LiveDemo/checkpoints/*
 Tensorflow_LiveDemo/data/*
 .ipynb_checkpoints/*
+*.pyc
