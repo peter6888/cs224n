@@ -1,2 +1,7 @@
 .ipynb_checkpoints/*
 .env/*
+graphs/*
+Tensorflow_LiveDemo/graphs/*
+Tensorflow_LiveDemo/visualization/*
+Tensorflow_LiveDemo/checkpoints/*
+Tensorflow_LiveDemo/data/*
