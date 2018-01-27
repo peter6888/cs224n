@@ -46,6 +46,8 @@ class SoftmaxModel(Model):
             self.labels_placeholder
         """
         ### YOUR CODE HERE
+        self.input_placeholder = tf.placeholder(tf.float32, shape=(self.config.batch_size, self.config.n_features), name="input")
+        self.labels_placeholder = tf.placeholder(tf.int32, shape=(self.config.batch_size, self.config.n_classes), name="labels")
         ### END YOUR CODE
 
     def create_feed_dict(self, inputs_batch, labels_batch=None):
@@ -69,6 +71,7 @@ class SoftmaxModel(Model):
             feed_dict: The feed dictionary mapping from placeholders to values.
         """
         ### YOUR CODE HERE
+        feed_dict = {self.input_placeholder: inputs_batch, self.labels_placeholder: labels_batch}
         ### END YOUR CODE
         return feed_dict
 
@@ -91,6 +94,12 @@ class SoftmaxModel(Model):
             pred: A tensor of shape (batch_size, n_classes)
         """
         ### YOUR CODE HERE
+        with tf.variable_scope("transformation"):
+            self.W = tf.get_variable("W", shape=(self.config.n_features, self.config.n_classes), dtype=tf.float32, initializer=tf.zeros_initializer)
+            self.b = tf.get_variable("b", shape=(self.config.n_classes), dtype=tf.float32, initializer=tf.zeros_initializer)
+            self.yhat = softmax(tf.add(tf.matmul(self.input_placeholder, self.W, name="yhat"), self.b))
+        pred = self.yhat
+
         ### END YOUR CODE
         return pred
 
@@ -105,6 +114,7 @@ class SoftmaxModel(Model):
             loss: A 0-d tensor (scalar)
         """
         ### YOUR CODE HERE
+        loss = cross_entropy_loss(self.labels_placeholder, pred)
         ### END YOUR CODE
         return loss
 
@@ -128,6 +138,8 @@ class SoftmaxModel(Model):
             train_op: The Op for training.
         """
         ### YOUR CODE HERE
+        optimizer = tf.train.GradientDescentOptimizer(self.config.lr)
+        train_op = optimizer.minimize(loss)
         ### END YOUR CODE
         return train_op
 
@@ -163,6 +175,7 @@ class SoftmaxModel(Model):
             average_loss = self.run_epoch(sess, inputs, labels)
             duration = time.time() - start_time
             print 'Epoch {:}: loss = {:.2f} ({:.3f} sec)'.format(epoch, average_loss, duration)
+
             losses.append(average_loss)
         return losses
 
