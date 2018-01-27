@@ -58,8 +58,18 @@ def cross_entropy_loss(y, yhat):
     """
 
     ### YOUR CODE HERE
-    y_argmax = tf.argmax(y, axis=1)
-    out = [-tf.log(yhat[i][j]) for i,j in enumerate(y_argmax)]
+    y_argmax = tf.argmax(y, axis=1, output_type=tf.int32)
+    # refers to https://github.com/tensorflow/tensorflow/issues/206
+    # equals to below python code
+    # out = [-tf.log(yhat[i][j]) for i,j in enumerate(y_argmax)]
+    idx_flat = tf.range(0, yhat.shape[0]) * yhat.shape[1] + y_argmax
+    entropy = tf.gather(tf.reshape(yhat, [-1]), idx_flat)
+    out = tf.reduce_sum(-tf.log(entropy))
+
+    #the common implementation
+    #log_y_hat = tf.log(yhat)
+    #element_mul = tf.to_float(y) * log_y_hat
+    #out = -tf.reduce_sum(element_mul)
     ### END YOUR CODE
 
     return out
