@@ -82,20 +82,26 @@
 
 \noindent \textbf{Answer:}
 
-\begin{align}
-	%
-	\frac{d\sigma(x)}{dx}  &= \frac{d}{dx}(\frac{1}{1 + e^{-x}}) \nonumber \\
-	%
-	&= -\frac{1}{(1+e^{-x})^2}\frac{d}{dx}(1+e^{-x})=\frac{-1}{(1+e^{-x})^{2}}\frac{d}{dx}e^{-x}=\frac{-1}{(1+e^{-x})^{2}}\frac{-1}{(e^{x})^{2}}\frac{d}{dx}e^{x} \nonumber \\
-	%
-	&=\frac{-1}{(1+e^{-x})^2}\frac{-1}{(e^{x})^{2}}e^{x}=\frac{1}{(1+e^{-x})^{2}(e^{x})^{2}}e^{x} \nonumber \\
-	%
-	&= \frac{e^{-x}}{(1+e^{-x})^2} =\frac{1+e^{-x}-1}{(1+e^{-x})^2} = \frac{1}{1+e^{-x}}-\frac{1}{(1+e^{-x})^{2}}\nonumber \\
-	%
-	&=(\frac{1}{1+e^{-x}})(1-\frac{1}{1+e^{-x}}) \nonumber \\
-	%
-	&= \sigma(x) (1 - \sigma(x)) \nonumber 
-\end{align}
+
+\begin{table}[!htbp]
+	\centering
+	\small
+\begin{tabular}{l|l|l|l}
+\textbf{stack} 						& \textbf{buffer}							& \textbf{ new dependency}	& \textbf{transition} 	\\ \hline 
+$[ROOT]$ 							& $[I, parsed, this, sentence, correctly]$  &  							& Initial Configuration \\ 
+$[ROOT, I]$ 						& $[parsed, this, sentence, correctly]$ 	&  							& \verb|SHIFT|  		\\ 
+$[ROOT, I, parsed]$ 				& $[this, sentence, correctly]$ 			&  							& \verb|SHIFT|  		\\ 
+$[ROOT, parsed]$ 					& $[this, sentence, correctly]$ 			& parsed $\rightarrow$ I 	& \verb|LEFT-ARC| 		\\ \hline
+$[ROOT, parsed, this]$				& $[sentence, correctly]$ 					&  							& \verb|SHIFT|  		\\ 
+$[ROOT, parsed, this, sentence]$	& $[correctly]$ 							&   						& \verb|SHIFT| 			\\ 
+$[ROOT, parsed, sentence]$ 			& $[correctly]$ 						& sentence $\rightarrow$ this	& \verb|LEFT-ARC| 		\\ 
+$[ROOT, parsed]$ 					& $[correctly]$ 						& parsed $\rightarrow$ sentence	& \verb|RIGHT-ARC| 		\\ 
+$[ROOT, parsed, correctly]$			& $[ ]$ 									&   						& \verb|SHIFT| 			\\ 
+$[ROOT, parsed]$ 					& $[ ]$ 								& parsed $\rightarrow$ correctly& \verb|RIGHT-ARC| 		\\ 
+$[ROOT]$ 							& $[ ]$ 									& ROOT $\rightarrow$ parsed & \verb|RIGHT-ARC| 		\\
+\end{tabular} 
+\end{table}
+
 
 
 %----------------------
