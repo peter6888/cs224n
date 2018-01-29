@@ -135,11 +135,11 @@ $[ROOT]$ 							& $[ ]$ 									& ROOT $\rightarrow$ parsed & \verb|RIGHT-ARC| 
 \subproblem{f}{Dropout (2 points, written)}
 \noindent \textbf{Answer:}  \\
 \begin{align}
- \lambda = \frac{1}{1-p_{drop}} \nonumber
+ \gamma = \frac{1}{1-p_{drop}} \nonumber
  \end{align}
  \textit{The mask vector $\bm{d}$ set entries in $\bm{h}$ to zero at probability $p_{drop} $, let's say $\bm{h}$ has full expectation value $\mathbb{E}[\bm{h}]$=1, so $\mathbb{E}[\bm{d} \circ \bm{h}]$=(1-$p_{drop}$), this because $p_{drop}$ of $\bm{h}$ values are become zero. \\ 
  %
- So, $1 = \frac{\mathbb{E}[\bm{d} \circ \bm{h}]}{(1-p_{drop})} \Rightarrow 1=\mathbb{E}[\bm{h}_{drop}]=\frac{1}{(1-p_{drop})}\mathbb{E}[\bm{d} \circ \bm{h}] \Rightarrow \lambda = \frac{1}{1-p_{drop}}$ }
+ So, $1 = \frac{\mathbb{E}[\bm{d} \circ \bm{h}]}{(1-p_{drop})} \Rightarrow 1=\mathbb{E}[\bm{h}_{drop}]=\frac{1}{(1-p_{drop})}\mathbb{E}[\bm{d} \circ \bm{h}] \Rightarrow \gamma = \frac{1}{1-p_{drop}}$ }
 \vskip4em
 
 %----------------------
