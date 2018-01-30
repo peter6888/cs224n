@@ -79,7 +79,6 @@ def minibatch_parse(sentences, model, batch_size):
     """
 
     ### YOUR CODE HERE
-    dependencies = []
     partial_parses = [PartialParse(s) for s in sentences]
     unfinished_parses = partial_parses
     while unfinished_parses:
@@ -90,16 +89,14 @@ def minibatch_parse(sentences, model, batch_size):
 
             for i, p in enumerate(minibatch_parses):
                 p.parse_step(minibatch_transition[i])
-
-            remain_parses = []
-            for p in minibatch_parses:
-                if len(p.buffer) == 0 and len(p.stack)==1:
-                    dependencies.append(p.dependencies)
-                else:
-                    remain_parses.append(p)
-            minibatch_parses = remain_parses
+                
+            minibatch_parses = [p for p in minibatch_parses if not(len(p.buffer)==0 and len(p.stack)==1)]
 
         unfinished_parses = unfinished_parses[batch_size:]
+
+    dependencies = []
+    for i in range(len(sentences)):
+        dependencies.append(partial_parses[i].dependencies)
     ### END YOUR CODE
 
     return dependencies
