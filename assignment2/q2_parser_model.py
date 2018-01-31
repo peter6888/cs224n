@@ -22,7 +22,7 @@ class Config(object):
     embed_size = 50
     hidden_size = 200
     batch_size = 1024
-    n_epochs = 200
+    n_epochs = 10
     lr = 0.001
 
 
