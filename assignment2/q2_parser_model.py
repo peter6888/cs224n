@@ -18,12 +18,12 @@ class Config(object):
     """
     n_features = 36
     n_classes = 3
-    dropout = 0.5  # (p_drop in the handout)
+    dropout = 0.24  # (p_drop in the handout)
     embed_size = 50
     hidden_size = 200
     batch_size = 1024
-    n_epochs = 10
-    lr = 0.0005
+    n_epochs = 200
+    lr = 0.001
 
 
 class ParserModel(Model):
@@ -146,7 +146,7 @@ class ParserModel(Model):
         #([self.config.n_classes]))#, name="b2")
 
         h = tf.nn.relu(tf.matmul(x, W) + b1)
-        h_drop = tf.nn.dropout(h, (1-self.dropout_placeholder )) / (1-self.dropout_placeholder)
+        h_drop = tf.nn.dropout(h, (1-self.dropout_placeholder ))
         pred = tf.matmul(h_drop, U) + b2
         ### END YOUR CODE
         return pred
