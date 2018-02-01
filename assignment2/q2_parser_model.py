@@ -142,7 +142,7 @@ class ParserModel(Model):
             # extension implementation for q2 (i) Bonus
             h = tf.layers.dense(x, self.config.hidden_size, \
                                 kernel_initializer=tf.contrib.layers.xavier_initializer(), \
-                                activation=tf.nn.relu, \
+                                activation=tf.nn.tanh, \
                                 use_bias=True, bias_initializer=tf.zeros_initializer(), \
                                 kernel_regularizer=tf.contrib.layers.l2_regularizer, \
                                 name = "hidden_layer")
@@ -296,5 +296,5 @@ def main(debug=True):
 
 
 if __name__ == '__main__':
-    main(True)
+    main(False)
 
