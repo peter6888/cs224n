@@ -58,9 +58,10 @@ class ParserModel(Model):
         self.input_placeholder = tf.placeholder(tf.int32, shape=(None, self.config.n_features), name="input")
         self.labels_placeholder = tf.placeholder(tf.float32, shape=(None, self.config.n_classes), name="labels")
         self.dropout_placeholder = tf.placeholder(tf.float32, shape=(), name="dropout")
+        self.l2_beta = tf.placeholder(tf.float32, name="l2_beta")
         ### END YOUR CODE
 
-    def create_feed_dict(self, inputs_batch, labels_batch=None, dropout=0):
+    def create_feed_dict(self, inputs_batch, labels_batch=None, dropout=0, beta=1e-10):
         """Creates the feed_dict for the dependency parser.
 
         A feed_dict takes the form of:
@@ -86,6 +87,10 @@ class ParserModel(Model):
         feed_dict = {self.input_placeholder:inputs_batch, self.dropout_placeholder: self.config.dropout}
         if labels_batch is not None:
             feed_dict[self.labels_placeholder] = labels_batch
+
+        if self.config.extension:
+            feed_dict[self.l2_beta] = beta
+
         ### END YOUR CODE
         return feed_dict
 
@@ -138,31 +143,35 @@ class ParserModel(Model):
 
         x = self.add_embedding()
         ### YOUR CODE HERE
-        if self.config.extension:
-            # extension implementation for q2 (i) Bonus
-            h = tf.layers.dense(x, self.config.hidden_size, \
-                                kernel_initializer=tf.contrib.layers.xavier_initializer(), \
-                                activation=tf.nn.relu, \
-                                use_bias=True, bias_initializer=tf.zeros_initializer(), \
-                                kernel_regularizer=tf.contrib.layers.l2_regularizer, \
-                                name = "hidden_layer")
-            h_drop = tf.nn.dropout(h, (1-self.dropout_placeholder ))
-            pred = tf.layers.dense(h_drop, self.config.n_classes, \
-                                kernel_initializer=tf.contrib.layers.xavier_initializer(),
-                                use_bias=True, bias_initializer=tf.zeros_initializer(), \
-                                kernel_regularizer=tf.contrib.layers.l2_regularizer, \
-                                name = "output_layer")
-        else:
-            n_concated_features = self.config.embed_size*self.config.n_features
-            xavier_initializer = xavier_weight_init()
-            W = xavier_initializer(shape=(n_concated_features,self.config.hidden_size))
-            U = xavier_initializer(shape=(self.config.hidden_size,self.config.n_classes))
-            b1 = tf.get_variable(name="b1", shape=[self.config.hidden_size,], initializer=tf.zeros_initializer)
-            b2 = tf.get_variable(name="b2", shape=[self.config.n_classes], initializer=tf.zeros_initializer)
+        # the implementation use tf.layers. see Piazza @529, should be use for HW
+        '''
+        h = tf.layers.dense(x, self.config.hidden_size, \
+                            kernel_initializer=tf.contrib.layers.xavier_initializer(), \
+                            activation=tf.nn.relu, \
+                            use_bias=True, bias_initializer=tf.zeros_initializer(), \
+                            kernel_regularizer=tf.contrib.layers.l2_regularizer, \
+                            name = "hidden_layer")
+        h_drop = tf.nn.dropout(h, (1-self.dropout_placeholder ))
+        pred = tf.layers.dense(h_drop, self.config.n_classes, \
+                            kernel_initializer=tf.contrib.layers.xavier_initializer(),
+                            use_bias=True, bias_initializer=tf.zeros_initializer(), \
+                            kernel_regularizer=tf.contrib.layers.l2_regularizer, \
+                            name = "output_layer")
+        ''' #end of use tf.layers
 
-            h = tf.nn.relu(tf.matmul(x, W) + b1)
-            h_drop = tf.nn.dropout(h, (1-self.dropout_placeholder ))
-            pred = tf.matmul(h_drop, U) + b2
+        n_concated_features = self.config.embed_size*self.config.n_features
+        xavier_initializer = xavier_weight_init()
+        W = xavier_initializer(shape=(n_concated_features,self.config.hidden_size))
+        U = xavier_initializer(shape=(self.config.hidden_size,self.config.n_classes))
+        b1 = tf.get_variable(name="b1", shape=[self.config.hidden_size,], initializer=tf.zeros_initializer)
+        b2 = tf.get_variable(name="b2", shape=[self.config.n_classes], initializer=tf.zeros_initializer)
+
+        h = tf.nn.relu(tf.matmul(x, W) + b1)
+        h_drop = tf.nn.dropout(h, (1-self.dropout_placeholder ))
+        pred = tf.matmul(h_drop, U) + b2
+
+        if self.config.extension:
+            self._W = W  #save W for l2 regularization
 
         ### END YOUR CODE
         return pred
@@ -183,6 +192,10 @@ class ParserModel(Model):
         ### YOUR CODE HERE
         entropy_loss = tf.nn.softmax_cross_entropy_with_logits(labels=self.labels_placeholder, logits=pred, name="loss")
         loss = tf.reduce_mean(entropy_loss)
+
+        if self.config.extension:
+            loss += self.l2_beta * tf.nn.l2_loss(self._W)
+
         ### END YOUR CODE
         return loss
 
@@ -275,10 +288,6 @@ def main(debug=True):
         print "TRAINING"
         print 80 * "="
         model.fit(session, saver, parser, train_examples, dev_set)
-
-        UAS, dependencies = parser.parse(test_set)
-        print "- test UAS: {:.2f}".format(UAS * 100.0)
-        print "Writing predictions"
 
         if not debug:
             print 80 * "="
