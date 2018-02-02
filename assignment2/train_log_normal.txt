@@ -1,0 +1,74 @@
+(.env) stonepeter@cntk-ubuntu:~/notebooks/cs224n/cs224n/assignment2$ python q2_parser_model.py 
+================================================================================
+INITIALIZING
+================================================================================
+Loading data... took 2.19 seconds
+Building parser... took 1.30 seconds
+Loading pretrained embeddings... took 2.52 seconds
+Vectorizing data... took 1.79 seconds
+Preprocessing training data... took 43.85 seconds
+Building model... took 0.23 seconds
+
+2018-02-02 07:12:15.632912: I tensorflow/core/platform/cpu_feature_guard.cc:137] Your CPU supports instructions that this TensorFlow binary was not compiled to use: SSE4.1 SSE4.2 AVX AVX2 FMA
+2018-02-02 07:12:15.993472: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1030] Found device 0 with properties: 
+name: Tesla K80 major: 3 minor: 7 memoryClockRate(GHz): 0.8235
+pciBusID: 0ace:00:00.0
+totalMemory: 11.17GiB freeMemory: 11.11GiB
+2018-02-02 07:12:15.993539: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1120] Creating TensorFlow device (/device:GPU:0) -> (device: 0, name: Tesla K80, pci bus id: 0ace:00:00.0, compute capability: 3.7)
+================================================================================
+TRAINING
+================================================================================
+Epoch 1 out of 10
+1848/1848 [==============================] - 17s - train loss: 0.1473       
+Evaluating on dev set - dev UAS: 84.57
+New best dev UAS! Saving model in ./data/weights/parser.weights
+
+Epoch 2 out of 10
+1848/1848 [==============================] - 16s - train loss: 0.0919       
+Evaluating on dev set - dev UAS: 86.17
+New best dev UAS! Saving model in ./data/weights/parser.weights
+
+Epoch 3 out of 10
+1848/1848 [==============================] - 16s - train loss: 0.0785       
+Evaluating on dev set - dev UAS: 87.01
+New best dev UAS! Saving model in ./data/weights/parser.weights
+
+Epoch 4 out of 10
+1848/1848 [==============================] - 16s - train loss: 0.0696       
+Evaluating on dev set - dev UAS: 86.71
+
+Epoch 5 out of 10
+1848/1848 [==============================] - 16s - train loss: 0.0628       
+Evaluating on dev set - dev UAS: 87.75
+New best dev UAS! Saving model in ./data/weights/parser.weights
+
+Epoch 6 out of 10
+1848/1848 [==============================] - 16s - train loss: 0.0567       
+Evaluating on dev set - dev UAS: 87.45
+
+Epoch 7 out of 10
+1848/1848 [==============================] - 16s - train loss: 0.0515       
+Evaluating on dev set - dev UAS: 88.11
+New best dev UAS! Saving model in ./data/weights/parser.weights
+
+Epoch 8 out of 10
+1848/1848 [==============================] - 16s - train loss: 0.0471       
+Evaluating on dev set - dev UAS: 87.48
+
+Epoch 9 out of 10
+1848/1848 [==============================] - 15s - train loss: 0.0433       
+Evaluating on dev set - dev UAS: 87.23
+
+Epoch 10 out of 10
+1848/1848 [==============================] - 16s - train loss: 0.0398       
+Evaluating on dev set - dev UAS: 87.58
+
+================================================================================
+TESTING
+================================================================================
+Restoring the best model weights found on the dev set
+Final evaluation on test set - test UAS: 88.31
+Writing predictions
+Done!
+(.env) stonepeter@cntk-ubuntu:~/notebooks/cs224n/cs224n/assignment2$ 
+

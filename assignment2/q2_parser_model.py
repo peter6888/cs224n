@@ -18,13 +18,13 @@ class Config(object):
     """
     n_features = 36
     n_classes = 3
-    dropout = 0.24  # (p_drop in the handout)
+    dropout = 0.26  # (p_drop in the handout)
     embed_size = 50
     hidden_size = 200
     batch_size = 1024
     n_epochs = 10
     lr = 0.001
-    extension = True
+    extension = False 
 
 
 class ParserModel(Model):
