@@ -170,6 +170,9 @@ class ParserModel(Model):
         h_drop = tf.nn.dropout(h, (1-self.dropout_placeholder ))
         pred = tf.matmul(h_drop, U) + b2
 
+        if self.config.extension:
+            self._W = W # keep W for l2 regularization use.
+            
         ### END YOUR CODE
         return pred
 
