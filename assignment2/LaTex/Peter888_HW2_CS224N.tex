@@ -154,14 +154,18 @@ $[ROOT]$ 							& $[ ]$ 									& ROOT $\rightarrow$ parsed & \verb|RIGHT-ARC| 
 %----------------------
 \subproblem{h}{Parser Model (20 points, coding/written)}
 \noindent \textbf{Answer:} 
-\noindent See code: $\sim$\verb|/q2_parser_model.py|.
+\noindent \\ See code: $\sim$\verb|/q2_parser_model.py|.
 \noindent \textit{Report the best UAS} \\
-\noindent \textit{List of predicted labels} \\
+\textit {
+The dev UAS: 87.83,  the test UAS: 88.09 \\
+}
+\noindent \textit{List of predicted labels, see file $q2_test.predicted.pk$l} \\
+
 \vskip4em
 
 %----------------------
 \subproblem{i}{Bonus (2 points, coding/written)}
-\noindent \textbf{Answer:} 
+\noindent \textbf{Answer: Implemented L2 regularization. And attempt  } 
 \vskip4em
 
 \newpage
@@ -172,7 +176,19 @@ $[ROOT]$ 							& $[ ]$ 									& ROOT $\rightarrow$ parsed & \verb|RIGHT-ARC| 
 %----------------------
 \subproblem{a}{ Perplexity (4 points, written)}
 \subsubproblem{i} {Derive Perplexity (2 points)}
-\noindent \textbf{Answer:} \\
+\noindent \textbf{Answer:} \\ \\
+\textit {  As $\bm{y^{(t)}}$ is an one-hot vector, suppose the k-th element $y_{k}^{(t)}$ is 1 \\ \\
+so, \\ \\
+$\bm{J}^{(t)}=-log(\hat{y}_{k}^{(t)})=log(\frac{1}{\hat{y}_{k}^{(t)}})$ \\ \\
+and we also have \\ \\
+$PP^{(t)}(\bm{y}^{(t)},\bm{\hat{y}}^{(t)})=\frac{1}{\hat{y}_{k}^{(t)}}$ \\ \\
+thus, we have \\ \\
+$\bm{J}^{(t)}=log(PP^{(t)}(\bm{y}^{(t)},\bm{\hat{y}}^{(t)}))$ \\ \\
+We also know $-log(x)$ is a strict convex function about x, and $\frac{1}{x}$ also a strict convex function (given $x>0$) about x \\ \\
+so, below two optimal problem will be equal \\ \\
+$min{-log(\hat{y}_{k}^{(t)})}$ \\ \\
+$min{\frac{1}{\hat{y}_{k}^{(t)}}}$ \\ \\
+}
 \vskip2em
 \subsubproblem{ii} {Equivalent (1 point)}
 \noindent \textbf{Answer:} \\
