@@ -132,9 +132,9 @@ $[ROOT]$ 							& $[ ]$ 									& ROOT $\rightarrow$ parsed & \verb|RIGHT-ARC| 
 \begin{align}
  \gamma = \frac{1}{1-p_{drop}} \nonumber
  \end{align}
- \indent \textit{The mask vector $\bm{d}$ set entries in $\bm{h}$ to zero at probability $p_{drop} $, let's say $\bm{h}$ has full expectation value $\mathbb{E}[\bm{h}]$=1, so $\mathbb{E}[\bm{d} \circ \bm{h}]$=(1-$p_{drop}$), this because $p_{drop}$ of $\bm{h}$ values are become zero. \\ 
+ \indent \textit{The mask vector $\bm{d}$ set entries in $\bm{h}$ to zero at probability $p_{drop} $, let's say $\bm{h}$ has full expectation value $\mathbb{E}[\bm{h}]$=1, so $\mathbb{E}[\bm{d} \circ \bm{h}]$=(1-$p_{drop}$), this because $p_{drop}$ of $\bm{h}$ values are become zero. \\ \\
  %
- So, $1 = \frac{\mathbb{E}[\bm{d} \circ \bm{h}]}{(1-p_{drop})} \Rightarrow 1=\mathbb{E}[\bm{h}_{drop}]=\frac{1}{(1-p_{drop})}\mathbb{E}[\bm{d} \circ \bm{h}] \Rightarrow \gamma = \frac{1}{1-p_{drop}}$ }
+ \indent So, $1 = \frac{\mathbb{E}[\bm{d} \circ \bm{h}]}{(1-p_{drop})} \Rightarrow 1=\mathbb{E}[\bm{h}_{drop}]=\frac{1}{(1-p_{drop})}\mathbb{E}[\bm{d} \circ \bm{h}] \Rightarrow \gamma = \frac{1}{1-p_{drop}}$ }
 \vskip4em
 
 %----------------------
@@ -163,7 +163,7 @@ The best dev UAS: 88.11,  and it's test UAS: 88.31 \\
 %----------------------
 \subproblem{i}{Bonus (2 points, coding/written)}
 \noindent \textbf{Answer: } \\
-\indent \textit{Implemented L2 regularization. The best dev UAS: 87.49, and it's test UAS: 87.86} 
+\indent \textit{Implemented L2 regularization. The best dev UAS: 87.49, and it's test UAS: 87.86. There is no significant improvement by using L2 regularization. This could be the overfit not due to parameters values, need to tune other hyper-parameters such as hidden layer size, or dropout rate.} 
 \vskip4em
 
 \newpage
@@ -175,40 +175,47 @@ The best dev UAS: 88.11,  and it's test UAS: 88.31 \\
 \subproblem{a}{ Perplexity (4 points, written)}
 \subsubproblem{i} {Derive Perplexity (2 points)}
 \noindent \textbf{Answer:} \\ \\
-\textit {  As $\bm{y^{(t)}}$ is an one-hot vector, suppose the k-th element $y_{k}^{(t)}$ is 1 \\ \\
-so, \\ \\
-$\bm{J}^{(t)}(\bm{\theta})=-log(\hat{y}_{k}^{(t)})=log(\frac{1}{\hat{y}_{k}^{(t)}})$ \\ \\
-and we also have \\ \\
-$PP^{(t)}(\bm{y}^{(t)},\bm{\hat{y}}^{(t)})=\frac{1}{\hat{y}_{k}^{(t)}}$ \\ \\
-thus, we have \\ \\
-$\bm{J}^{(t)}(\bm{\theta})=log(PP^{(t)}(\bm{y}^{(t)},\bm{\hat{y}}^{(t)}))$ \\ \\
-}
+\textit {  As $\bm{y^{(t)}}$ is an one-hot vector, assume the k-th element $y_{k}^{(t)}$ is 1 \\ \\
+so, }\\ 
+\begin{align} \bm{J}^{(t)}(\bm{\theta})=-log(\hat{y}_{k}^{(t)})=log(\frac{1}{\hat{y}_{k}^{(t)}})
+\end{align}
+\textit{and we also have }\\ 
+\begin{align} 
+PP^{(t)}(\bm{y}^{(t)},\bm{\hat{y}}^{(t)})=\frac{1}{\hat{y}_{k}^{(t)}}
+\end{align}
+\textit{thus, we have }\\ 
+\begin{align}
+\bm{J}^{(t)}(\bm{\theta})=log(PP^{(t)}(\bm{y}^{(t)},\bm{\hat{y}}^{(t)}))
+\end{align}
+
 \vskip2em
 \subsubproblem{ii} {Equivalent (1 point)}
 \noindent \textbf{Answer:} \\
 \textit {
 We know $min\{log(f(x)\}=min\{f(x)\}, f(x)>0$ \\ \\
-then we have, \\ \\
-$min\{\bm{J}^{(t)}(\bm{\theta})=log(PP(\bm{y}^{(t)},\bm{\hat{y}}^{(t)})):\bm{\theta}>0\}=min\{PP^{(t)}(\bm{y}^{(t)},\bm{\hat{y}}^{(t)})\}$ $\forall (t \in [1..T])$\\ \\
-from convex theory not hard to know minimizing the geometric mean equivalent to minimizing the arithmetic mean if the related function have same minimizing equivalent.\\ \\
+then we have, }\\
+\begin{align}
+min\{\bm{J}^{(t)}(\bm{\theta})=log(PP(\bm{y}^{(t)},\bm{\hat{y}}^{(t)})):\bm{\theta}>0\}=min\{PP^{(t)}(\bm{y}^{(t)},\bm{\hat{y}}^{(t)})\} \forall (t \in [1..T]) \nonumber
+\end{align}
+\textit {from convex theory not hard to know minimizing the geometric mean equivalent to minimizing the arithmetic mean if the related function have same minimizing equivalent. }\\ \\
+\indent \textit {
 $min\{(\prod_{j=1}^{T}f_{j}(x))^{\frac{1}{T}}\}=min\{\frac{1}{T}\sum_{i=1}^{T}(g_{i}(x))\}$, when $min\{\bm{f}(x)\}=min\{\bm{g}(x)\}$, for $\bm{f}$,$\bm{g}$ are positive functions\\ \\
 Finally, we can get the minimizing geometric mean perplexity equivalent to minimizing the arithmetic mean cross-entropy loss \\ \\
-$min\{(\prod_{t=1}^{T}PP(\bm{y}^{(t)},\bm{\hat{y}}^{(t)}))^{\frac{1}{T}}\}$ = $min\{\frac{1}{T}\sum_{t=1}^{T}CE(\bm{y}^{(t)},\bm{\hat{y}}^{(t)})\}$\\ \\
+$\indent$ $min\{(\prod_{t=1}^{T}PP(\bm{y}^{(t)},\bm{\hat{y}}^{(t)}))^{\frac{1}{T}}\}$ = $min\{\frac{1}{T}\sum_{t=1}^{T}CE(\bm{y}^{(t)},\bm{\hat{y}}^{(t)})\}$\\ \\
 }
 \vskip2em
+\newpage
 \subsubproblem{iii} {Perplexity for a single word (1 point)}
 \noindent \textbf{Answer:} \\
 \textit {
 for given word $\bm{\omega}_j$, \\ \\
-$\bar{P} \left( \bm{x}^{(t+1)} = \bm{\omega}_j \vert \bm{x}^{(t)}, \dots, \bm{x }^{(1)} \right)=\frac{1}{\vert V \vert}$  \\ \\
+$\indent$ $\bar{P} \left( \bm{x}^{(t+1)} = \bm{\omega}_j \vert \bm{x}^{(t)}, \dots, \bm{x }^{(1)} \right)=\frac{1}{\vert V \vert}$  \\ \\
 so the perplexity for that single word $\bm{\omega}_j$, is $\vert V \vert$\\ \\
-$PP^{(t)}(\bm{y}^{(t)},\bm{\hat{y}}^{(t)}=1/\frac{1}{\vert V \vert} = \vert V \vert$ \\ \\
+$\indent$$PP^{(t)}(\bm{y}^{(t)},\bm{\hat{y}}^{(t)}=1/\frac{1}{\vert V \vert} = \vert V \vert$ \\ \\
 because, $\bm{J}^{(t)}(\bm{\theta})=log(PP^{(t)}(\bm{y}^{(t)},\bm{\hat{y}}^{(t)}))$, when $\vert V \vert$=10000 \\ \\
-$\bm{J}^{(t)}(\bm{\theta})=log(\vert V \vert) \approx 9.213$
+$\indent$$\bm{J}^{(t)}(\bm{\theta})=log(\vert V \vert) \approx 9.213$
 }
 \vskip2em
-
-\vskip5em
 
 %----------------------
 \subproblem{b}{Gradients on Single Point (7 points, written)}
@@ -271,12 +278,11 @@ $\bm{J}^{(t)}(\bm{\theta})=log(\vert V \vert) \approx 9.213$
 	 =  \bm{\delta_{2}^{(t-1)}} (\bm{h}^{(t-2)})^{T}  
 \end{align}
 \vskip5em
+\newpage
 %----------------------
 \subproblem{d}{How Many Operations for Single Timestep (3 points, written)}
 \noindent \textbf{Answer:} \\
 \indent \textit {Go through each equations in part (b), those backpropagation's operations are $O(|V| \times D_{h})$,  $O(d \times D_{h})$ and  $O(D_{h} \times D_{h})$, adding up all those operations, for a single step the operation count is $\bm{O}(|V| \times D_h + d \times D_h + D_h \times D_h)$} 
-\vskip5em
-
 %----------------------
 \subproblem{e}{How Many Operations for Entire Sequence (3 points, written)}
 
@@ -292,7 +298,6 @@ $\bm{J}^{(t)}(\bm{\theta})=log(\vert V \vert) \approx 9.213$
 %----------------------
 \subproblem{g}{Bonus (1 point, written)}
 \noindent \textbf{Answer:} \\
-
 \textit {If we can change the operation count from  $\bm{O}(T \times (|V| \times D_h + d \times D_h + D_h \times D_h))$ to  $\bm{O}(T \times (C \times D_h + d \times D_h + D_h \times D_h))$, by mapping words to classes, and C  is the number of classes, because $C<|V|$, this will speed up the calculation. And this approach suggested by the paper "Externsions of recurrent neural network language model" (Mikolov, et al. 2013) 
 }
 
