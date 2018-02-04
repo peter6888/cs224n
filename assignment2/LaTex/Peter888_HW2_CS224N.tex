@@ -39,7 +39,7 @@
 \noindent\textbf{Answer:} \\
 \noindent See code: $\sim$\verb|/q1_softmax.py|.
 
-\vskip5em
+\vskip3em
 
 %----------------------
 \subproblem{b}{Implement Cross-Entropy use Tensorflow (5 points, coding)}
@@ -47,32 +47,29 @@
 
 \noindent See code: $\sim$\verb|/q1_softmax.py|.
 
-\vskip5em
+\vskip3em
 %----------------------
 \subproblem{c}{Tensorflow Placeholder and Feed Dictionary (5 points, coding/written)}
 \noindent \textbf{Answer:} \\
-
-\noindent See code: $\sim$\verb|/q1_classifier.py|. 
+\noindent See code: $\sim$\verb|/q1_classifier.py|.  \\ \\
+\noindent \textit {Explanation:} \\
+\indent \textit{Placeholder variables and feed dictionary make it possible to feed external data (such as training data for network) into Tensorflow's computational graph.}
 \vskip3em
-\textit {Explanation:}
-
-\vskip5em
-\newpage
 
 %----------------------
 \subproblem{d}{Implement Classifier (5 points, coding)}
 \noindent\textbf{Answer:} \\
 \noindent See code: $\sim$\verb|/q1_classifier.py|.
 
-\vskip5em
+\vskip3em
 %----------------------
 \subproblem{e}{Implement Model (5 points, coding/written)}
 \noindent\textbf{Answer:} \\
-\noindent See code: $\sim$\verb|/q1_classifier.py|. 
+\noindent See code: $\sim$\verb|/q1_classifier.py|. \\ \\
+\noindent \textit {Explanation:} \\
+\indent \textit {When the model's $train\_op$ is called. Computation going forward through the computation graph with Placeholder's input and the init/start values in Variables. The Tensorflow automatic differentiation will start the backward propagation, it will automatically calculate the gradients and differentiations, and update the Variables back through the computation graph.}
 \vskip3em
-\textit {Explanation:}
-
-\vskip5em
+\newpage
 %-------------------------------------
 \problem{2: Neural Transition-Based Dependency Parsing (50 points + 2 bonus points)}
 %-------------------------------------
@@ -105,7 +102,6 @@ $[ROOT]$ 							& $[ ]$ 									& ROOT $\rightarrow$ parsed & \verb|RIGHT-ARC| 
 
 
 %----------------------
-\newpage
 \subproblem{b}{How many steps (2 points, written)}
 \label{prob:2b}
 \noindent \textbf{Answer:} 
@@ -114,7 +110,6 @@ $[ROOT]$ 							& $[ ]$ 									& ROOT $\rightarrow$ parsed & \verb|RIGHT-ARC| 
 
 \vskip4em
 
-\newpage
 
 \subproblem{c}{Parser Step (6 points, coding)}
 
@@ -137,7 +132,7 @@ $[ROOT]$ 							& $[ ]$ 									& ROOT $\rightarrow$ parsed & \verb|RIGHT-ARC| 
 \begin{align}
  \gamma = \frac{1}{1-p_{drop}} \nonumber
  \end{align}
- \textit{The mask vector $\bm{d}$ set entries in $\bm{h}$ to zero at probability $p_{drop} $, let's say $\bm{h}$ has full expectation value $\mathbb{E}[\bm{h}]$=1, so $\mathbb{E}[\bm{d} \circ \bm{h}]$=(1-$p_{drop}$), this because $p_{drop}$ of $\bm{h}$ values are become zero. \\ 
+ \indent \textit{The mask vector $\bm{d}$ set entries in $\bm{h}$ to zero at probability $p_{drop} $, let's say $\bm{h}$ has full expectation value $\mathbb{E}[\bm{h}]$=1, so $\mathbb{E}[\bm{d} \circ \bm{h}]$=(1-$p_{drop}$), this because $p_{drop}$ of $\bm{h}$ values are become zero. \\ 
  %
  So, $1 = \frac{\mathbb{E}[\bm{d} \circ \bm{h}]}{(1-p_{drop})} \Rightarrow 1=\mathbb{E}[\bm{h}_{drop}]=\frac{1}{(1-p_{drop})}\mathbb{E}[\bm{d} \circ \bm{h}] \Rightarrow \gamma = \frac{1}{1-p_{drop}}$ }
 \vskip4em
@@ -145,27 +140,30 @@ $[ROOT]$ 							& $[ ]$ 									& ROOT $\rightarrow$ parsed & \verb|RIGHT-ARC| 
 %----------------------
 \subproblem{g}{Adam Optimizer (4 points, written)}
 \subsubproblem{i}{Momentum}
-\noindent \textbf{Answer:} 
+\noindent \textbf{Answer:} \\
+\indent \textit{The rolling average, $m$, can reduce the variance in updates, by down-weighting the impact of the current minibatch's gradient. For instance, if $\beta$ is 0.5, when updating $\bm{\theta}$, it will use half of past rolling average $m$, and half of current minibatch's gradient. Consider if the current minibatch's gradient varies too larger or too smaller than the last rolling average $m$, the momentum will reduce the larger or smaller part of the gradient to just half to get new $m$, and use the reduced new $m$ to do update. }
 \vskip4em
 \subsubproblem{ii}{Adaptive Learning Rates}
-\noindent \textbf{Answer:} 
+\noindent \textbf{Answer:} \\
+\indent \textit {The parameters with smaller gradients (especial rolling average smaller) will get larger updates. For parameters been changing flatly, the adaptive learning rate will help to these parameter get larger updates, and helping these parameter move off plateaus. This can increase learning speed.}
 \vskip4em
 
 %----------------------
 \subproblem{h}{Parser Model (20 points, coding/written)}
 \noindent \textbf{Answer:} 
-\noindent \\ See code: $\sim$\verb|/q2_parser_model.py|.
-\noindent \textit{Report the best UAS} \\
-\textit {
-The dev UAS: 87.83,  the test UAS: 88.09 \\
+\noindent \\ See code: $\sim$\verb|/q2_parser_model.py|. \\
+\indent \textit{Report the best UAS} \\
+\indent \textit {
+The best dev UAS: 88.11,  and it's test UAS: 88.31 \\
 }
-\noindent \textit{List of predicted labels, see file $q2_test.predicted.pk$l} \\
+\indent \textit{List of predicted labels, see file $q2\_test.predicted.pkl$} \\
 
 \vskip4em
 
 %----------------------
 \subproblem{i}{Bonus (2 points, coding/written)}
-\noindent \textbf{Answer: Implemented L2 regularization. And attempt  } 
+\noindent \textbf{Answer: } \\
+\indent \textit{Implemented L2 regularization. The best dev UAS: 87.49, and it's test UAS: 87.86} 
 \vskip4em
 
 \newpage
@@ -212,8 +210,6 @@ $\bm{J}^{(t)}(\bm{\theta})=log(\vert V \vert) \approx 9.213$
 
 \vskip5em
 
-
-\newpage
 %----------------------
 \subproblem{b}{Gradients on Single Point (7 points, written)}
 
@@ -225,7 +221,8 @@ $\bm{J}^{(t)}(\bm{\theta})=log(\vert V \vert) \approx 9.213$
 \textit{Write sigmoid(x) as $\sigma(x)$, and it's derivative as $\sigma^{'}(x)$}
 \begin{align}
 	\bm{\delta_{2}^{(t)}} &= \frac{\partial{\bm{J}}}{\partial{\bm{z}}^{(t)}} = \bm{\delta_{1}^{(t)}} \frac{\partial{\bm{\theta}^{(t)}}}{\partial{\bm{h}}^{(t)}}  \frac{\partial{\bm{h}}^{(t)}}{\partial{\bm{z}}^{(t)}}  \nonumber \\%
-	&=\bm{U}^{T} \cdot \bm{\delta_{1}^{(t)}} \circ \sigma^{'}(\bm{z})  \\
+	&=\bm{U}^{T} \cdot \bm{\delta_{1}^{(t)}} \circ \sigma^{'}(\bm{z}^{(t)})  \nonumber \\
+	&=\bm{U}^{T} \cdot \bm{\delta_{1}^{(t)}} \circ \bm{h}^{(t)} \circ (1 -  \bm{h}^{(t)})  \\
 	 \frac{\partial{\bm{J}^{(t)}}}{\partial{\bm{U}}} &= \frac{\partial{\bm{J}^{(t)}}}{\partial{\bm{\theta}}^{(t)}}  \frac{\partial{\bm{\theta}^{(t)}}}{\partial{\bm{U}}} %
 	 = \bm{\delta_{1}^{(t)}} (\bm{h}^{(t)})^{T}  \\
 	 \frac{\partial{\bm{J}^{(t)}}}{\partial{\bm{e}^{(t)}}} &= \frac{\partial{\bm{J}^{(t)}}}{\partial{\bm{z}^{(t)}}} \frac{\partial{\bm{z}^{(t)}}}{\partial{\bm{e}^{(t)}}} %
@@ -250,56 +247,53 @@ $\bm{J}^{(t)}(\bm{\theta})=log(\vert V \vert) \approx 9.213$
 	\centering
 	\includegraphics[scale=0.75]{unrolled3timesteps}
 \end{figure}
+\textit {} \\
+\textit {We know:} 
+\begin{align}
+\bm{z}^{(t-1)}&=\bm{W}_{h} \vert_{(t-1)} \bm{h}^{(t-2)} + \bm{W}_{e} \vert_{(t-1)} \bm{e}^{(t-1)} + \bm{b}_{1}\vert_{(t-1)}\\
+\bm{h}^{(t-1)}&= sigmoid(\bm{z}^{(t-1)})=\sigma({\bm{z}}^{(t-1)}) \\
+\bm{\gamma}^{(t-1)} &= \frac{\partial{\bm{J}^{(t)}}}{\partial{\bm{h}^{(t-1)}}} 
+\end{align}
+\textit {Then,} \\
+\begin{align}
+\bm{\delta_{2}^{(t-1)}} &= \frac{\partial{\bm{J}}^{(t)}}{\partial{\bm{z}}^{(t-1)}} = \frac{\partial{\bm{J}^{(t)}}}{\partial{\bm{h}^{(t-1)}}} % 
+	\frac{\partial{\bm{h}}^{(t-1)}}{\partial{\bm{z}}^{(t-1)}}  \nonumber \\
+	&=\bm{\gamma}^{(t-1)}  \circ \sigma^{'}(\bm{z}^{(t-1)})  \nonumber \\
+	&=\bm{\gamma}^{(t-1)}  \circ \bm{h}^{(t-1)} \circ (1 - \bm{h}^{(t-1)}) \\ 
+\frac{\partial{\bm{J}^{(t)}}}{\partial{\bm{e}^{(t-1)}}} &= \frac{\partial{\bm{J}^{(t)}}}{\partial{\bm{z}^{(t-1)}}}  %
+		\frac{\partial{\bm{z}^{(t-1)}}}{\partial{\bm{e}^{(t-1)}}} %
+	 =  (\bm{W}_{e} \vert_{(t-1)})^{T} \bm{\delta_{2}^{(t-1)}}  \\
+	 \frac{\partial{\bm{J}^{(t)}}}{\partial{\bm{W_{e}}}} \bigg\rvert_{(t-1)} &=\frac{\partial{\bm{J}^{(t)}}}{\partial{\bm{z}^{(t-1)}}}  %
+	 		\frac{\partial{\bm{z}^{(t-1)}}}{\partial{\bm{W_{e}}}} \bigg\rvert_{(t-1)} %
+	 = \bm{\delta_{2}^{(t-1)}} (\bm{e}^{(t-1)})^{T}  \\
+	 \frac{\partial{\bm{J}^{(t)}}}{\partial{\bm{W}_{h}}}  \bigg\rvert_{(t-1)} &= \frac{\partial{\bm{J}^{(t)}}}{\partial{\bm{z}}^{(t-1)}} %
+	 		 \frac{\partial{\bm{z}^{(t-1)}}}{\partial{\bm{W}_{h}}} \bigg\rvert_{(t-1)} %
+	 =  \bm{\delta_{2}^{(t-1)}} (\bm{h}^{(t-2)})^{T}  
+\end{align}
 \vskip5em
 %----------------------
 \subproblem{d}{How Many Operations for Single Timestep (3 points, written)}
 \noindent \textbf{Answer:} \\
-
-\noindent Derivatives for the skip-gram model
-\begin{align}
-	%
-	\frac{J_{skip-gram}(word_{c-m \dots c+m})}{\partial \bm{v}_{c}} &= %
-		\sum\limits_{-m \leq j \leq m, j \ne 0} \frac{\partial F(\bm{w}_{c+j}, \bm{v}_{c})}{\partial \bm{v}_{c}} \nonumber \\
-	%
-	\frac{J_{skip-gram}(word_{c-m \dots c+m})}{\partial \bm{v}_{j}} &= 0, \forall j\ne c \nonumber \\
-	%
-	\frac{J_{skip-gram}(word_{c-m \dots c+m})}{\partial \bm{U}} &= %
-		\sum\limits_{-m \leq j \leq m, j \ne 0} \frac{\partial F(\bm{w}_{c+j}, \bm{v}_{c})}{\partial \bm{U}} \nonumber 
-\end{align}
-
-
-\noindent Derivatives for the CBOW model
-\begin{align}
-	%
-	\frac{J_{CBOW}(word_{c-m \dots c+m})}{\partial \bm{v}_{j}} &= %
-		\frac{\partial F(\bm{w}_{c}, \hat{\bm{v}})}{\partial \hat{\bm{v}}}, \forall (j \ne c) \in \{c-m \dots c+m\}  \nonumber \\
-	%
-	\frac{J_{CBOW}(word_{c-m \dots c+m})}{\partial \bm{v}_{j}} &= 0, %
-		\forall (j \ne c) \notin \{c-m \dots c+m\}  \nonumber \\
-	%
-	\frac{J_{CBOW}(word_{c-m \dots c+m})}{\partial \bm{U}} &= %
-		\frac{\partial F(\bm{w}_{c}, \hat{\bm{v}})}{\partial \bm{U}} \nonumber
-\end{align}
-
+\indent \textit {Go through each equations in part (b), those backpropagation's operations are $O(|V| \times D_{h})$,  $O(d \times D_{h})$ and  $O(D_{h} \times D_{h})$, adding up all those operations, for a single step the operation count is $\bm{O}(|V| \times D_h + d \times D_h + D_h \times D_h)$} 
 \vskip5em
 
-
-\newpage
 %----------------------
 \subproblem{e}{How Many Operations for Entire Sequence (3 points, written)}
 
-\noindent \textbf{Answer:}  See code: $\sim$\verb|/q3_word2vec.py|.
+\noindent \textbf{Answer:}  \\
+\indent \textit {Go through each backpropagation equations operation in part (c), the operation count also $\bm{O}(|V| \times D_h + d \times D_h + D_h \times D_h)$.  So for T words, the total operation count is $\bm{O}(T \times (|V| \times D_h + d \times D_h + D_h \times D_h))$}
 
 %----------------------
 \subproblem{f}{Which largest? Term RNN? (1 point, written)}
 
-\noindent \textbf{Answer:}  See code: $\sim$\verb|/q3_sgd.py|.
+\noindent \textbf{Answer:}  \\
+\indent \textit {$\bm{O}(|V| \times D_h)$ term is the largest. Word dictionary $|V|$is normally large, and $D_h << |V|$. It happens when backpropagate from output layer to hidden layer.}
 
 %----------------------
 \subproblem{g}{Bonus (1 point, written)}
 \noindent \textbf{Answer:} \\
 
-\textit {Explain: In the Word Vectors image, words clustered at similarity, such as the emotion words "amazing", "wonderful" and "great" are very close to each other. The word "well" a little further but still close to "amazing"  , the connection characters and words "the" "a" "," etc are spread around alone.
+\textit {If we can change the operation count from  $\bm{O}(T \times (|V| \times D_h + d \times D_h + D_h \times D_h))$ to  $\bm{O}(T \times (C \times D_h + d \times D_h + D_h \times D_h))$, by mapping words to classes, and C  is the number of classes, because $C<|V|$, this will speed up the calculation. And this approach suggested by the paper "Externsions of recurrent neural network language model" (Mikolov, et al. 2013) 
 }
 
 \end{document}
