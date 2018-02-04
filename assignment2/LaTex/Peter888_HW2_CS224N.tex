@@ -179,22 +179,35 @@ The dev UAS: 87.83,  the test UAS: 88.09 \\
 \noindent \textbf{Answer:} \\ \\
 \textit {  As $\bm{y^{(t)}}$ is an one-hot vector, suppose the k-th element $y_{k}^{(t)}$ is 1 \\ \\
 so, \\ \\
-$\bm{J}^{(t)}=-log(\hat{y}_{k}^{(t)})=log(\frac{1}{\hat{y}_{k}^{(t)}})$ \\ \\
+$\bm{J}^{(t)}(\bm{\theta})=-log(\hat{y}_{k}^{(t)})=log(\frac{1}{\hat{y}_{k}^{(t)}})$ \\ \\
 and we also have \\ \\
 $PP^{(t)}(\bm{y}^{(t)},\bm{\hat{y}}^{(t)})=\frac{1}{\hat{y}_{k}^{(t)}}$ \\ \\
 thus, we have \\ \\
-$\bm{J}^{(t)}=log(PP^{(t)}(\bm{y}^{(t)},\bm{\hat{y}}^{(t)}))$ \\ \\
-We also know $-log(x)$ is a strict convex function about x, and $\frac{1}{x}$ also a strict convex function (given $x>0$) about x \\ \\
-so, below two optimal problem will be equal \\ \\
-$min{-log(\hat{y}_{k}^{(t)})}$ \\ \\
-$min{\frac{1}{\hat{y}_{k}^{(t)}}}$ \\ \\
+$\bm{J}^{(t)}(\bm{\theta})=log(PP^{(t)}(\bm{y}^{(t)},\bm{\hat{y}}^{(t)}))$ \\ \\
 }
 \vskip2em
 \subsubproblem{ii} {Equivalent (1 point)}
 \noindent \textbf{Answer:} \\
+\textit {
+We know $min\{log(f(x)\}=min\{f(x)\}, f(x)>0$ \\ \\
+then we have, \\ \\
+$min\{\bm{J}^{(t)}(\bm{\theta})=log(PP(\bm{y}^{(t)},\bm{\hat{y}}^{(t)})):\bm{\theta}>0\}=min\{PP^{(t)}(\bm{y}^{(t)},\bm{\hat{y}}^{(t)})\}$ $\forall (t \in [1..T])$\\ \\
+from convex theory not hard to know minimizing the geometric mean equivalent to minimizing the arithmetic mean if the related function have same minimizing equivalent.\\ \\
+$min\{(\prod_{j=1}^{T}f_{j}(x))^{\frac{1}{T}}\}=min\{\frac{1}{T}\sum_{i=1}^{T}(g_{i}(x))\}$, when $min\{\bm{f}(x)\}=min\{\bm{g}(x)\}$, for $\bm{f}$,$\bm{g}$ are positive functions\\ \\
+Finally, we can get the minimizing geometric mean perplexity equivalent to minimizing the arithmetic mean cross-entropy loss \\ \\
+$min\{(\prod_{t=1}^{T}PP(\bm{y}^{(t)},\bm{\hat{y}}^{(t)}))^{\frac{1}{T}}\}$ = $min\{\frac{1}{T}\sum_{t=1}^{T}CE(\bm{y}^{(t)},\bm{\hat{y}}^{(t)})\}$\\ \\
+}
 \vskip2em
 \subsubproblem{iii} {Perplexity for a single word (1 point)}
 \noindent \textbf{Answer:} \\
+\textit {
+for given word $\bm{\omega}_j$, \\ \\
+$\bar{P} \left( \bm{x}^{(t+1)} = \bm{\omega}_j \vert \bm{x}^{(t)}, \dots, \bm{x }^{(1)} \right)=\frac{1}{\vert V \vert}$  \\ \\
+so the perplexity for that single word $\bm{\omega}_j$, is $\vert V \vert$\\ \\
+$PP^{(t)}(\bm{y}^{(t)},\bm{\hat{y}}^{(t)}=1/\frac{1}{\vert V \vert} = \vert V \vert$ \\ \\
+because, $\bm{J}^{(t)}(\bm{\theta})=log(PP^{(t)}(\bm{y}^{(t)},\bm{\hat{y}}^{(t)}))$, when $\vert V \vert$=10000 \\ \\
+$\bm{J}^{(t)}(\bm{\theta})=log(\vert V \vert) \approx 9.213$
+}
 \vskip2em
 
 \vskip5em
@@ -207,52 +220,23 @@ $min{\frac{1}{\hat{y}_{k}^{(t)}}}$ \\ \\
 \noindent \textbf{Answer:} 
 
 \begin{align}
-	\frac{\partial J}{\partial \bm{v}_{c}} &= %
-		\frac{\partial}{\partial \bm{v}_{c}} ( (-log(\sigma(\bm{u}_{o}^{T} \bm{v}_{c}))) - % 
-			\sum\limits_{k=1}^{K} log(\sigma(- \bm{u}_{k}^{T} \bm{v}_{c})) )\nonumber \\
-		%
-		&= %
-		- \frac{\partial}{\partial \bm{v}_{c}} (log(\sigma(\bm{u}_{o}^{T} \bm{v}_{c}))) - % 
-		   \sum\limits_{k=1}^{K} \frac{\partial}{\partial \bm{v}_{c}} log(\sigma(- \bm{u}_{k}^{T} \bm{v}_{c})) \nonumber \\
-		&= %
-		\frac{-1}{ \sigma(\bm{u}_{o}^{T} \bm{v}_{c})} (\frac{\partial}{\partial \bm{v}_{c}} \sigma(\bm{u}_{o}^{T} \bm{v}_{c})) - % 
-		   \sum\limits_{k=1}^{K} \frac{1}{\sigma(- \bm{u}_{k}^{T} \bm{v}_{c})} \frac{\partial}{\partial \bm{v}_{c}} \sigma(- \bm{u}_{k}^{T} \bm{v}_{c}) \nonumber \\
-		&= %
-		-(1-\sigma(\bm{u}_{o}^{T} \bm{v}_{c})) \bm{u}_{o} - % 
-		   \sum\limits_{k=1}^{K} (1- \sigma(- \bm{u}_{k}^{T} \bm{v}_{c})) (- \bm{u}_{k}) \nonumber \\
-		&= %
-		(\sigma(\bm{u}_{o}^{T} \bm{v}_{c}) - 1) \bm{u}_{o} - % 
-		   \sum\limits_{k=1}^{K} ( \sigma(- \bm{u}_{k}^{T} \bm{v}_{c}) - 1) \bm{u}_{k} \nonumber 
-		%
+	\bm{\delta_{1}^{(t)}} &= \frac{\partial{\bm{J}}}{\partial{\bm{\theta}}^{(t)}} = -\mathbf{y} + \hat{\mathbf{y}}  
 \end{align}
-
+\textit{Write sigmoid(x) as $\sigma(x)$, and it's derivative as $\sigma^{'}(x)$}
 \begin{align}
-	\frac{\partial J}{\partial \bm{u}_{o}} &= %
-		\frac{\partial}{\partial \bm{u}_{o}} ( (-log(\sigma(\bm{u}_{o}^{T} \bm{v}_{c}))) - % 
-			\sum\limits_{k=1}^{K} log(\sigma(- \bm{u}_{k}^{T} \bm{v}_{c})) )\nonumber \\
-		&= %
-		\frac{-1}{ \sigma(\bm{u}_{o}^{T} \bm{v}_{c})} (\frac{\partial}{\partial \bm{u}_{o}} \sigma(\bm{u}_{o}^{T} \bm{v}_{c})) - 0 \nonumber \\
-		&= %
-		-(1- \sigma(\bm{u}_{o}^{T} \bm{v}_{c}))\frac{\partial}{\partial \bm{u}_{o}}(\bm{u}_{o}^{T} \bm{v}_{c}) \nonumber \\
-		&= (\sigma(\bm{u}_{o}^{T} \bm{v}_{c})-1)\bm{u}_{o} \nonumber \\
-	       %
-	\frac{\partial J}{\partial \bm{u}_{k}} &= %
-		\frac{\partial}{\partial \bm{u}_{k}} ( (-log(\sigma(\bm{u}_{o}^{T} \bm{v}_{c}))) - % 
-			\sum\limits_{k=1}^{K} log(\sigma(- \bm{u}_{k}^{T} \bm{v}_{c})) )\nonumber \\
-		&= %
-		0 - \frac{\partial}{\partial \bm{u}_{k}} log(\sigma(-\bm{u}_{k}^{T} \bm{v}_{c})) \nonumber \\
-		&= -\frac{1}{\sigma(-\bm{u}_{k}^{T} \bm{v}_{c})}\sigma(-\bm{u}_{k}^{T} \bm{v}_{c})(1-\sigma(-\bm{u}_{k}^{T} \bm{v}_{c})) %
-			\frac{\partial}{\partial \bm{u}_{k}}(-\bm{u}_{k}^{T} \bm{v}_{c}) \nonumber \\
-		&= %
-		-(\sigma(-\bm{u}_{k}^{T} \bm{v}_{c}) - 1) \bm{v}_{c}) \nonumber \\
-		&= (\sigma(\bm{u}_{k}^{T} \bm{v}_{c})  \bm{v}_{c} ,\mbox{  for all } k \neq o \nonumber
+	\bm{\delta_{2}^{(t)}} &= \frac{\partial{\bm{J}}}{\partial{\bm{z}}^{(t)}} = \bm{\delta_{1}^{(t)}} \frac{\partial{\bm{\theta}^{(t)}}}{\partial{\bm{h}}^{(t)}}  \frac{\partial{\bm{h}}^{(t)}}{\partial{\bm{z}}^{(t)}}  \nonumber \\%
+	&=\bm{U}^{T} \cdot \bm{\delta_{1}^{(t)}} \circ \sigma^{'}(\bm{z})  \\
+	 \frac{\partial{\bm{J}^{(t)}}}{\partial{\bm{U}}} &= \frac{\partial{\bm{J}^{(t)}}}{\partial{\bm{\theta}}^{(t)}}  \frac{\partial{\bm{\theta}^{(t)}}}{\partial{\bm{U}}} %
+	 = \bm{\delta_{1}^{(t)}} (\bm{h}^{(t)})^{T}  \\
+	 \frac{\partial{\bm{J}^{(t)}}}{\partial{\bm{e}^{(t)}}} &= \frac{\partial{\bm{J}^{(t)}}}{\partial{\bm{z}^{(t)}}} \frac{\partial{\bm{z}^{(t)}}}{\partial{\bm{e}^{(t)}}} %
+	 =  (\bm{W}_{e} \vert_{(t)})^{T} \bm{\delta_{2}^{(t)}}  \\
+	 \frac{\partial{\bm{J}^{(t)}}}{\partial{\bm{W_{e}}}} \bigg\rvert_{(t)} &=\frac{\partial{\bm{J}^{(t)}}}{\partial{\bm{z}^{(t)}}}  \frac{\partial{\bm{z}^{(t)}}}{\partial{\bm{W_{e}}}} \bigg\rvert_{(t)} %
+	 = \bm{\delta_{2}^{(t)}} (\bm{e}^{(t)})^{T}  \\
+	 \frac{\partial{\bm{J}^{(t)}}}{\partial{\bm{W}_{h}}}  \bigg\rvert_{(t)} &= \frac{\partial{\bm{J}^{(t)}}}{\partial{\bm{z}}^{(t)}}  \frac{\partial{\bm{z}^{(t)}}}{\partial{\bm{W}_{h}}} \bigg\rvert_{(t)} %
+	 =  \bm{\delta_{2}^{(t)}} (\bm{h}^{(t-1)})^{T}  \\
+	 \frac{\partial{\bm{J}^{(t)}}}{\partial{\bm{h}^{(t-1)}}} &= \frac{\partial{\bm{J}^{(t)}}}{\partial{\bm{z}^{(t)}}} \frac{\partial{\bm{z}^{(t)}}}{\partial{\bm{h}^{(t-1)}}} %
+	 =  (\bm{W}_{h} \vert_{(t)})^{T} \bm{\delta_{2}^{(t)}}  
 \end{align}
-
-\vskip3em
-
-
-\noindent Negative sampling is faster than softmax-CE loss at speed up ratio $\frac{V}{K}$, where V is all words in dictionary count, and K is the sampling size. 
-
 
 \vskip5em
 
