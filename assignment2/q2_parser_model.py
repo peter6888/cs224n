@@ -24,8 +24,8 @@ class Config(object):
     batch_size = 1024
     n_epochs = 10
     lr = 0.001
-    extension = False 
-
+    extension = False
+    seconds_hidden_size = 30
 
 class ParserModel(Model):
     """
@@ -161,17 +161,31 @@ class ParserModel(Model):
 
         n_concated_features = self.config.embed_size*self.config.n_features
         xavier_initializer = xavier_weight_init()
-        W = xavier_initializer(shape=(n_concated_features,self.config.hidden_size))
-        U = xavier_initializer(shape=(self.config.hidden_size,self.config.n_classes))
-        b1 = tf.get_variable(name="b1", shape=[self.config.hidden_size,], initializer=tf.zeros_initializer)
-        b2 = tf.get_variable(name="b2", shape=[self.config.n_classes], initializer=tf.zeros_initializer)
-
-        h = tf.nn.relu(tf.matmul(x, W) + b1)
-        h_drop = tf.nn.dropout(h, (1-self.dropout_placeholder ))
-        pred = tf.matmul(h_drop, U) + b2
-
         if self.config.extension:
-            self._W = W # keep W for l2 regularization use.
+            W = xavier_initializer(shape=(n_concated_features,self.config.seconds_hidden_size))
+            U1 = xavier_initializer(shape=(self.config.hidden_size,self.config.seconds_hidden_size))
+            U2 = xavier_initializer(shape=(self.config.seconds_hidden_size,self.config.n_classes))
+            b1 = tf.get_variable(name="b1", shape=[self.config.seconds_hidden_size,], initializer=tf.zeros_initializer)
+            b2 = tf.get_variable(name="b_", shape=[self.config.hidden_size,], initializer=tf.zeros_initializer)
+            b3 = tf.get_variable(name="b2", shape=[self.config.n_classes], initializer=tf.zeros_initializer)
+            h1 = tf.nn.relu(tf.matmul(x, W) + b1)
+            h1_drop = tf.nn.dropout(h1, (1-self.dropout_placeholder ))
+            h2 = tf.nn.relu(tf.matmul(h1_drop, U1) + b2)
+            h2_drop = tf.nn.dropout(h2, (1-self.dropout_placeholder ))
+            pred = tf.matmul(h2_drop, U2) + b3
+
+        else:
+            W = xavier_initializer(shape=(n_concated_features,self.config.hidden_size))
+            U = xavier_initializer(shape=(self.config.hidden_size,self.config.n_classes))
+            b1 = tf.get_variable(name="b1", shape=[self.config.hidden_size,], initializer=tf.zeros_initializer)
+            b2 = tf.get_variable(name="b2", shape=[self.config.n_classes], initializer=tf.zeros_initializer)
+            h = tf.nn.relu(tf.matmul(x, W) + b1)
+            h_drop = tf.nn.dropout(h, (1-self.dropout_placeholder ))
+            pred = tf.matmul(h_drop, U) + b2
+
+
+        #if self.config.extension:
+        #    self._W = W # keep W for l2 regularization use.
             
         ### END YOUR CODE
         return pred
@@ -193,8 +207,8 @@ class ParserModel(Model):
         entropy_loss = tf.nn.softmax_cross_entropy_with_logits(labels=self.labels_placeholder, logits=pred, name="loss")
         loss = tf.reduce_mean(entropy_loss)
 
-        if self.config.extension:
-            loss += self.l2_beta * tf.nn.l2_loss(self._W)
+        #if self.config.extension:
+        #    loss += self.l2_beta * tf.nn.l2_loss(self._W)
 
         ### END YOUR CODE
         return loss
