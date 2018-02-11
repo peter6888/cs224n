@@ -268,7 +268,7 @@ softmax(x) = softmax(x + c) \nonumber
 		\frac{-1}{ \sigma(\bm{u}_{o}^{T} \bm{v}_{c})} (\frac{\partial}{\partial \bm{u}_{o}} \sigma(\bm{u}_{o}^{T} \bm{v}_{c})) - 0 \nonumber \\
 		&= %
 		-(1- \sigma(\bm{u}_{o}^{T} \bm{v}_{c}))\frac{\partial}{\partial \bm{u}_{o}}(\bm{u}_{o}^{T} \bm{v}_{c}) \nonumber \\
-		&= (\sigma(\bm{u}_{o}^{T} \bm{v}_{c})-1)\bm{u}_{o} \nonumber \\
+		&= (\sigma(\bm{u}_{o}^{T} \bm{v}_{c})-1)\bm{v}_{c} \nonumber \\
 	       %
 	\frac{\partial J}{\partial \bm{u}_{k}} &= %
 		\frac{\partial}{\partial \bm{u}_{k}} ( (-log(\sigma(\bm{u}_{o}^{T} \bm{v}_{c}))) - % 
@@ -292,7 +292,7 @@ softmax(x) = softmax(x + c) \nonumber
 
 \newpage
 %----------------------
-\subproblem{d}{Skip-gram and CBOW Gradients (8 points)}
+\subproblem{d}{Cost Function's Gradients (8 points)}
 \noindent \textbf{Answer:} \\
 
 \noindent Derivatives for the skip-gram model

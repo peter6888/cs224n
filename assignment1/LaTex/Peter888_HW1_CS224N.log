@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.5.23)  25 JAN 2018 22:49
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.5.23)  10 FEB 2018 23:19
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1868,8 +1868,15 @@ Package atveryend Info: Empty hook `AfterLastShipout' on input line 500.
  (./Peter888_HW1_CS224N.aux)
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 500.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 500.
-Package rerunfilecheck Info: File `Peter888_HW1_CS224N.out' has not changed.
-(rerunfilecheck)             Checksum: 9EA21DBB29C9288E57B47ED29ED40E4D;2547.
+
+
+Package rerunfilecheck Warning: File `Peter888_HW1_CS224N.out' has changed.
+(rerunfilecheck)                Rerun to get outlines right
+(rerunfilecheck)                or use package `bookmark'.
+
+Package rerunfilecheck Info: Checksums for `Peter888_HW1_CS224N.out':
+(rerunfilecheck)             Before: 9EA21DBB29C9288E57B47ED29ED40E4D;2547
+(rerunfilecheck)             After:  18814E6128A6338D34376BB0F791AA4E;2544.
  )
 (\end occurred inside a group at level 1)
 
@@ -1901,7 +1908,7 @@ ve/2017/texmf-dist/fonts/type1/public/mathabx-type1/matha10.pfb></usr/local/tex
 live/2017/texmf-dist/fonts/type1/public/mathabx-type1/matha7.pfb></usr/local/te
 xlive/2017/texmf-dist/fonts/type1/public/mathabx-type1/mathx10.pfb></usr/local/
 texlive/2017/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on Peter888_HW1_CS224N.pdf (14 pages, 252774 bytes).
+Output written on Peter888_HW1_CS224N.pdf (14 pages, 252739 bytes).
 PDF statistics:
  299 PDF objects out of 1000 (max. 8388607)
  257 compressed objects within 3 object streams
