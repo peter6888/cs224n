@@ -18,14 +18,14 @@ class Config(object):
     """
     n_features = 36
     n_classes = 3
-    dropout = 0.26  # (p_drop in the handout)
+    dropout = 0.12  # (p_drop in the handout)
     embed_size = 50
     hidden_size = 200
     batch_size = 1024
     n_epochs = 10
     lr = 0.001
-    extension = False
-    seconds_hidden_size = 30
+    extension = False 
+    second_hidden_size = 30
 
 class ParserModel(Model):
     """
@@ -162,10 +162,10 @@ class ParserModel(Model):
         n_concated_features = self.config.embed_size*self.config.n_features
         xavier_initializer = xavier_weight_init()
         if self.config.extension:
-            W = xavier_initializer(shape=(n_concated_features,self.config.seconds_hidden_size))
-            U1 = xavier_initializer(shape=(self.config.hidden_size,self.config.seconds_hidden_size))
-            U2 = xavier_initializer(shape=(self.config.seconds_hidden_size,self.config.n_classes))
-            b1 = tf.get_variable(name="b1", shape=[self.config.seconds_hidden_size,], initializer=tf.zeros_initializer)
+            W = xavier_initializer(shape=(n_concated_features,self.config.second_hidden_size))
+            U1 = xavier_initializer(shape=(self.config.second_hidden_size,self.config.hidden_size))
+            U2 = xavier_initializer(shape=(self.config.hidden_size,self.config.n_classes))
+            b1 = tf.get_variable(name="b1", shape=[self.config.second_hidden_size,], initializer=tf.zeros_initializer)
             b2 = tf.get_variable(name="b_", shape=[self.config.hidden_size,], initializer=tf.zeros_initializer)
             b3 = tf.get_variable(name="b2", shape=[self.config.n_classes], initializer=tf.zeros_initializer)
             h1 = tf.nn.relu(tf.matmul(x, W) + b1)
