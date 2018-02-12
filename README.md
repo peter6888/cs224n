@@ -19,16 +19,20 @@ Suggested Readings
 [Efficient Estimation of Word Representations in Vector Space]
 
 Review Python knowledge
-	• `_Python-Numpy-Tutorial <http://cs231n.github.io/python-numpy-tutorial/>`_
-	• `_Python-Tutorial <https://github.com/kuleshov/cs228-material/blob/master/tutorials/python/cs228-python-tutorial.ipynb>`_
-	• `_Numpy for Matlab Users <http://scipy.github.io/old-wiki/pages/NumPy_for_Matlab_Users>`_
-	• `_Stanford Python Class <http://stanfordpython.com/>`_
+	• [Python-Numpy-Tutorial](http://cs231n.github.io/python-numpy-tutorial/)
+	
+	• [Python-Tutorial](https://github.com/kuleshov/cs228-material/blob/master/tutorials/python/cs228-python-tutorial.ipynb)
+	
+	• [Numpy for Matlab Users](http://scipy.github.io/old-wiki/pages/NumPy_for_Matlab_Users)
+	
+	• [Stanford Python Class](http://stanfordpython.com/)
+	
   
-SQuAd dataset - The Stanford Question Answering Dataset
-  https://rajpurkar.github.io/SQuAD-explorer/
+SQuAd dataset - [The Stanford Question Answering Dataset] (https://rajpurkar.github.io/SQuAD-explorer/)
   
  Related Classes
- http://cs230.stanford.edu/syllabus.html
- http://cs229.stanford.edu/syllabus.html or https://see.stanford.edu/Course/CS229 
+ [cs230] (http://cs230.stanford.edu/syllabus.html)
+ 
+ [cs229] (http://cs229.stanford.edu/syllabus.html) [or] (https://see.stanford.edu/Course/CS229)
  
   
