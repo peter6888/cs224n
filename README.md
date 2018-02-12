@@ -19,13 +19,14 @@ Suggested Readings
 [Efficient Estimation of Word Representations in Vector Space]
 
 Review Python knowledge
-	• [Python-Numpy-Tutorial](http://cs231n.github.io/python-numpy-tutorial/)
+
+[Python-Numpy-Tutorial](http://cs231n.github.io/python-numpy-tutorial)
 	
-	• [Python-Tutorial](https://github.com/kuleshov/cs228-material/blob/master/tutorials/python/cs228-python-tutorial.ipynb)
+[Python-Tutorial](https://github.com/kuleshov/cs228-material/blob/master/tutorials/python/cs228-python-tutorial.ipynb)
 	
-	• [Numpy for Matlab Users](http://scipy.github.io/old-wiki/pages/NumPy_for_Matlab_Users)
+[Numpy for Matlab Users](http://scipy.github.io/old-wiki/pages/NumPy_for_Matlab_Users)
 	
-	• [Stanford Python Class](http://stanfordpython.com/)
+[Stanford Python Class](http://stanfordpython.com/)
 	
   
 SQuAd dataset - [The Stanford Question Answering Dataset] (https://rajpurkar.github.io/SQuAD-explorer/)
