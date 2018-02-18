@@ -38,20 +38,26 @@
 \subproblem{a}{ Understanding NER (5 points, written)}
 \subsubproblem{i} {Ambiguous Examples (2 points)} 
 \noindent\textbf{Answer:} \\
+\indent 1. "Walt Disney has just bought Fox for 52bn", here "Walt Disney" and "Fox" are ambiguous type. "Walt Disney" can stands for person, the founder of Walt Disney Company, or can stands for "Walt Disney" organization, the company. \\
+\indent 2. "What does the Fox say", here "Fox" is ambiguous type. "Fox" can stands for the animal, or can stands for "Fox" organization, the company.
 \subsubproblem{ii} {Why use features (1 point)} 
+\noindent\textbf{Answer: } \\
+\indent Words can have multiple means depending on it's context. We need predict named entity labels from their context as well. \\
+\subsubproblem{iii} { Feature examples (2 points)} 
 \noindent\textbf{Answer:} \\
-\subsubproblem{iii} {Describe the features (2 points)} 
-\noindent\textbf{Answer:} \\
-
+\indent 1. Adjacent Verb. For example "Rose said", here Rose should be a person, not the flower rose, because it's adjacent verb "said" \\ 
+\indent 2. Location. If "Chase" happening on highway, that's normally the verb chase, instead of the bank "Chase"
 \vskip3em
 
 %----------------------
 \subproblem{b}{ Computational complexity (5 points, written)}
 \subsubproblem{i} {Dimensions (2 points)} 
 \noindent\textbf{Answer:} \\
+\indent $\bm{e}^{(t)} \in \mathbb{R}^{1 \times ((2\omega + 1)\times D)}$, $\bm{W} \in \mathbb{R}^{(2\omega + 1)\times H}$,  $\bm{U} \in \mathbb{R}^{H \times C}$
 \subsubproblem{ii} {Complexity (3 point)} 
 \noindent\textbf{Answer:} \\
-
+\indent For each step $\bm{e}^{(t)}$ requires $\bm{O}((2\omega + 1)\times D)$ computation, $\bm{h}^{(t)}$ requires $\bm{O}((2\omega + 1) \times D \times H)$ computation, and $\bm{\hat{y}}^{(t)}$ requires $\bm{O}(H \times C)$ computation. \\
+\indent In total, requires $\bm{O}(T \times ((2\omega + 1)\times D + (2\omega + 1) \times D \times H + H \times C))$ computation.  Ignore the constants and $D,H>>C$, the computation complexity of whole sentence is $\bm{O}(T \times \omega \times D \times H)$
 \vskip3em
 
 %----------------------
