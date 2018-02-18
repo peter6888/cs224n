@@ -1,0 +1,133 @@
+\documentclass[fleqn]{MJD}
+
+\usepackage{cancel}
+\usepackage{cleveref}
+\usepackage{titlesec}
+\usepackage{hyperref}
+%\colorsections
+%\bluelinks
+\newcommand{\problem}[1]{\chapter{Problem #1}}
+\newcommand{\subproblem}[2]{\section{(#1)~ #2}}
+\newcommand{\subsubproblem}[2]{\subsection{ #1)~ #2}}
+\newcommand{\U}{\cup}
+\renewcommand{\S}{\mathcal{S}}
+\renewcommand{\s}{\subset}
+\renewcommand{\equiv}{\Leftrightarrow}
+\newcommand{\0}{\emptyset}
+\newcommand{\imp}{\Rightarrow}
+\newcommand{\Usum}{\bigcup\limits_{i=1}^\infty}
+\newcommand{\intsum}{\bigcup\limits_{i=1}^\infty}
+\newcommand{\infsum}{\sum\limits_{i=1}^\infty}
+\newcommand{\sets}{\{A_1, A_2 \dots\} }
+\newcommand{\nsets}{\{A_1, \dots, A_n \} }
+
+\titleformat{\chapter}[display]
+  {\normalfont\bfseries}{}{0pt}{\LARGE}
+  
+\graphicspath{ {../} }
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+\lstset{language=Python}
+\titleAT[CS 224N: Assignment 3]{Peter888@stanford.edu}
+%-------------------------------------
+\problem{1. A window into NER (30 points)}
+%-------------------------------------
+
+%----------------------
+\subproblem{a}{ Understanding NER (5 points, written)}
+\subsubproblem{i} {Ambiguous Examples (2 points)} 
+\noindent\textbf{Answer:} \\
+\subsubproblem{ii} {Why use features (1 point)} 
+\noindent\textbf{Answer:} \\
+\subsubproblem{iii} {Describe the features (2 points)} 
+\noindent\textbf{Answer:} \\
+
+\vskip3em
+
+%----------------------
+\subproblem{b}{ Computational complexity (5 points, written)}
+\subsubproblem{i} {Dimensions (2 points)} 
+\noindent\textbf{Answer:} \\
+\subsubproblem{ii} {Complexity (3 point)} 
+\noindent\textbf{Answer:} \\
+
+\vskip3em
+
+%----------------------
+\subproblem{c}{Implement model(15 points, code)}
+\vskip3em
+\newpage
+%-------------------------------------
+\problem{2. Recurrent neural nets for NER (40 points)}
+%-------------------------------------
+
+%----------------------
+\subproblem{a}{Computational complexity (4 points, written)}
+\subsubproblem{i} {How many more (1 point)} 
+\noindent\textbf{Answer:} \\
+\subsubproblem{ii} {Complexity (3 point)} 
+\noindent\textbf{Answer:} \\
+\vskip3em
+%----------------------
+\subproblem{b}{$F_{1}$ score (2 points, written)}
+\subsubproblem{i} {When CE cost and $F_{1}$ decreasing at same time (1 point)} 
+\noindent\textbf{Answer:} \\
+\subsubproblem{ii} {Why not $F_{1}$ (1 point)} 
+\noindent\textbf{Answer:} \\
+
+\vskip4em
+
+
+\subproblem{c}{RNN cell (5 points, code)}
+\vskip4em
+%----------------------
+\subproblem{d}{RNN model (8 points, code/written)}
+\subsubproblem{i} { Loss and Gradient Update (3 points, written)} 
+\noindent\textbf{Answer:} \\
+\subsubproblem{ii} { (5 points, code)} 
+\vskip4em
+%----------------------
+
+\subproblem{e}{More RNN model (12 points, code)}
+\vskip4em
+
+\subproblem{e}{Train RNN model (3 points, code)}
+\vskip4em
+
+\newpage
+%-------------------------------------
+\problem{3. Grooving with GRUs (30 points)}
+%-------------------------------------
+
+%----------------------
+\subproblem{a}{ Modeling latching behavior (4 points, written)}
+\subsubproblem{i} {RNN cell values (1 point)}
+\noindent \textbf{Answer:} \\ \\
+\subsubproblem{ii} {GRU cell values (3 points)}
+\noindent \textbf{Answer:} \\
+\vskip4em
+
+%----------------------
+\subproblem{b}{Modeling toggling behavior (6 points, written)}
+\subsubproblem{i} {1D RNN (3 points)}
+\noindent \textbf{Answer:} \\ \\
+\subsubproblem{ii} {GRU cell values (3 points)}
+\noindent \textbf{Answer:} \\
+\vskip4em
+
+%----------------------
+\subproblem{c}{GRU cell (6 points, code)}
+\vskip5em
+%----------------------
+\subproblem{d}{Learn dynamics (6 points, code)}
+\vskip4em
+%----------------------
+
+\subproblem{e}{Analyze graphs (5 points, written)}
+\noindent \textbf{Answer:}  \\
+\vskip4em
+%----------------------
+\subproblem{f}{Train GRU (3 points, code)}
+
+\end{document}
