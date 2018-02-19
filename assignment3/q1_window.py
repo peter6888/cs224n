@@ -182,7 +182,7 @@ class WindowModel(NERModel):
             embeddings: tf.Tensor of shape (None, n_window_features*embed_size)
         """
         ### YOUR CODE HERE (!3-5 lines)
-        pretrained_embeddings_var = tf.Variable(initial_value=self.pretrained_embeddings, trainable=False)
+        pretrained_embeddings_var = tf.Variable(initial_value=self.pretrained_embeddings, trainable=True)
         embedding_results = tf.nn.embedding_lookup(pretrained_embeddings_var, self.input_placeholder)
         embeddings = tf.reshape(embedding_results, shape=(-1, self.config.n_window_features * self.config.embed_size))
         ### END YOUR CODE
@@ -219,7 +219,7 @@ class WindowModel(NERModel):
                             units = self.config.hidden_size, activation=tf.nn.relu, \
                             use_bias=True, \
                             kernel_initializer=tf.contrib.layers.xavier_initializer())
-        h_drop = tf.nn.dropout(h, (1-dropout_rate))
+        h_drop = tf.nn.dropout(h, dropout_rate)
         pred = tf.layers.dense(inputs = h_drop, \
                                units = self.config.n_classes, \
                                use_bias = True, \
