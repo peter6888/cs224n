@@ -8,3 +8,4 @@ Tensorflow_LiveDemo/data/*
 .ipynb_checkpoints/*
 *.pyc
 */.idea/*
+assignment3/results/*

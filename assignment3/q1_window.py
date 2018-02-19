@@ -37,7 +37,7 @@ class Config:
     n_word_features = 2 # Number of features for every word in the input.
     window_size = 1 # The size of the window to use.
     ### YOUR CODE HERE
-    n_window_features = 6 # The total number of features used for each window.
+    n_window_features = (2 * window_size + 1) * n_word_features # The total number of features used for each window.
     ### END YOUR CODE
     n_classes = 5
     dropout = 0.5
@@ -160,7 +160,7 @@ class WindowModel(NERModel):
         """
         ### YOUR CODE HERE (~5-10 lines)
         feed_dict = {self.input_placeholder: inputs_batch, self.dropout_placeholder:dropout}
-        if labels_batch:
+        if labels_batch is not None:
             feed_dict[self.labels_placeholder] = labels_batch
         ### END YOUR CODE
         return feed_dict
@@ -219,7 +219,7 @@ class WindowModel(NERModel):
                             units = self.config.hidden_size, activation=tf.nn.relu, \
                             use_bias=True, \
                             kernel_initializer=tf.contrib.layers.xavier_initializer())
-        h_drop = tf.nn.dropout(h, (1-self.dropout_placeholder ))
+        h_drop = tf.nn.dropout(h, (1-dropout_rate))
         pred = tf.layers.dense(inputs = h_drop, \
                                units = self.config.n_classes, \
                                use_bias = True, \
@@ -241,7 +241,7 @@ class WindowModel(NERModel):
             loss: A 0-d tensor (scalar)
         """
         ### YOUR CODE HERE (~2-5 lines)
-        entropy_loss = tf.nn.softmax_cross_entropy_with_logits(labels=self.labels_placeholder, logits=pred, name="loss")
+        entropy_loss = tf.nn.sparse_softmax_cross_entropy_with_logits(labels=self.labels_placeholder, logits=pred)
         loss = tf.reduce_mean(entropy_loss)
         ### END YOUR CODE
         return loss
