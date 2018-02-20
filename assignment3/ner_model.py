@@ -108,8 +108,8 @@ class NERModel(Model):
 			# The general idea is to loop over minibatches from train_examples, and run train_on_batch inside the loop
             ### YOUR CODE HERE (2-3 lines)
             batches = minibatches(train_examples, self.config.batch_size)
-            for inputs_batch, labels_batch in batches:
-                self.train_on_batch(sess, inputs_batch, labels_batch)
+            for batch in batches:
+                self.train_on_batch(sess, *batch)
             ### END YOUR CODE
 
             logger.info("Evaluating on development data")
