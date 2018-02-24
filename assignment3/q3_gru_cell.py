@@ -86,7 +86,7 @@ class GRUCell(tf.nn.rnn_cell.RNNCell):
                                   initializer=tf.constant_initializer(np.zeros((self.state_size))))
             z_t = tf.nn.sigmoid(tf.matmul(inputs, W_z) + tf.matmul(state, U_z) + b_z)
             r_t = tf.nn.sigmoid(tf.matmul(inputs, W_r) + tf.matmul(state, U_r) + b_r)
-            o_t = tf.nn.tanh(tf.matmul(inputs, W_o) + r_t * tf.matmul(state, U_o) + b_o)
+            o_t = tf.nn.tanh(tf.matmul(inputs, W_o) + tf.matmul(r_t * state, U_o) + b_o)
             new_state = z_t * state + (1-z_t) * o_t
             ### END YOUR CODE ###
         # For a GRU, the output and state are the same (N.B. this isn't true
