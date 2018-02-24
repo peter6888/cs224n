@@ -59,9 +59,38 @@
 \indent For each step $\bm{e}^{(t)}$ requires $\bm{O}((2\omega + 1)\times D)$ computation, $\bm{h}^{(t)}$ requires $\bm{O}((2\omega + 1) \times D \times H)$ computation, and $\bm{\hat{y}}^{(t)}$ requires $\bm{O}(H \times C)$ computation. \\
 \indent In total, requires $\bm{O}(T \times ((2\omega + 1)\times D + (2\omega + 1) \times D \times H + H \times C))$ computation.  Ignore the constants and $D,H>>C$, the computation complexity of whole sentence is $\bm{O}(T \times \omega \times D \times H)$
 \vskip3em
-
+\newpage
 %----------------------
 \subproblem{c}{Implement model(15 points, code)}
+\noindent \textbf{Answer:}  See code: $\sim$\verb|/q1_window.py|.
+\vskip3em
+%----------------------
+\subproblem{d}{Analyze the predictions (5 points, written)}
+\subsubproblem{i} {Report best $F_{1}$ score (1 point)} 
+\indent \textbf{Answer:}  \textit {Get best $F_{1}$ score 0.84. } \\ 
+\begin{table}[!htbp]
+\begin{tabular}{@{}rrrrrr@{}}
+\toprule
+& \multicolumn{5}{c} {Token-level confusion matrix:} \\ \midrule
+\textbf{go/gu}   	& \textbf{PER}     	& \textbf{ORG}     & 	\textbf{LOC}    	& \textbf{MISC}    & 	\textbf{O }      \\ \midrule
+\textit{PER }    	& \textbf{2935.00} 	& 38.00   	& 90.00   	& 16.00   	& 70.00 \\  
+ORG     	& 135.00  & 	\textbf{1659.00} 	& 120.00  	& 51.00   	& 127.00  \\
+LOC     	& 36.00   	& 118.00  	& \textbf{1863.00} 	& 14.00   	& 63.00   \\
+MISC    	& 45.00   	& 52.00   	& 56.00   	& \textbf{999.00}  	& 116.00  \\
+O       	& 36.00   	& 43.00   	& 20.00   	& 23.00   	& \textbf{42637.00} \\ \bottomrule
+\end{tabular}
+\end{table} \\
+\indent \textbf{Explanation:}  \textit {The major errors which we can see from the confusion matrix are predict  ORG as PER, O or LOC, and still errors are predict LOC to ORG,  MISC as O.}
+\subsubproblem{ii} {Describe limitation (4 points)} 
+\indent \textbf{Answer:} { \\
+\indent Limitation 1. Window based prediction is limited by it's window size, human can easy understand "Sixflags Discovery Kingdom" should be an organization based on the coming word "located", but our model only have window size 2, so it can't do well on window longer than that. \\
+\indent Limitation 2. Context and surrounding tags influence. Humans are easily predict "Kingdom" should related with "Discovery" and should connected to each other in same entity name, and should be ORG}
+\begin{table}[!htbp]
+\begin{tabular}{@{}rrrrrrrr@{}}
+x : Sixflags & Discovery & Kingdom & is & located & at & northern & California  \\                                                          
+y': PER      & ORG       & LOC    & O  & O       & O  & O        & LOC    \\ 
+\end{tabular}
+\end{table} \\
 \vskip3em
 \newpage
 %-------------------------------------
@@ -132,6 +161,11 @@
 
 \subproblem{e}{Analyze graphs (5 points, written)}
 \noindent \textbf{Answer:}  \\
+It's fine if GRU gradients are still below 5.0 without gradient clipping; just make conclusions based on what you see in your graphs. A few things to consider:
+
+- Are gradients increasing or decreasing for the GRU with and without gradient-clipping? Is this expected?
+
+- Does loss improve or stay constant for the RNN vs. GRU? Does gradient-clipping affect the loss? Why might this be the case?
 \vskip4em
 %----------------------
 \subproblem{f}{Train GRU (3 points, code)}
