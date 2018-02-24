@@ -21,7 +21,7 @@
 \BOOKMARK [1][-]{section.2.4}{\(d\) \040RNN model \(8 points, code/written\)}{chapter.2}% 21
 \BOOKMARK [2][-]{subsection.2.4.1}{ i\) \040 Loss and Gradient Update \(3 points, written\)}{section.2.4}% 22
 \BOOKMARK [2][-]{subsection.2.4.2}{ ii\) \040 \(5 points, code\)}{section.2.4}% 23
-\BOOKMARK [1][-]{section.2.5}{\(e\) \040More RNN model \(12 points, code\)}{chapter.2}% 24
+\BOOKMARK [1][-]{section.2.5}{\(e\) \040Full RNN model \(12 points, code\)}{chapter.2}% 24
 \BOOKMARK [1][-]{section.2.6}{\(e\) \040Train RNN model \(3 points, code\)}{chapter.2}% 25
 \BOOKMARK [0][-]{chapter.3}{Problem 3. Grooving with GRUs \(30 points\)}{}% 26
 \BOOKMARK [1][-]{section.3.1}{\(a\) \040 Modeling latching behavior \(4 points, written\)}{chapter.3}% 27
@@ -31,6 +31,6 @@
 \BOOKMARK [2][-]{subsection.3.2.1}{ i\) \0401D RNN \(3 points\)}{section.3.2}% 31
 \BOOKMARK [2][-]{subsection.3.2.2}{ ii\) \040GRU cell values \(3 points\)}{section.3.2}% 32
 \BOOKMARK [1][-]{section.3.3}{\(c\) \040GRU cell \(6 points, code\)}{chapter.3}% 33
-\BOOKMARK [1][-]{section.3.4}{\(d\) \040Learn dynamics \(6 points, code\)}{chapter.3}% 34
+\BOOKMARK [1][-]{section.3.4}{\(d\) \040Dynamic RNN \(6 points, code\)}{chapter.3}% 34
 \BOOKMARK [1][-]{section.3.5}{\(e\) \040Analyze graphs \(5 points, written\)}{chapter.3}% 35
 \BOOKMARK [1][-]{section.3.6}{\(f\) \040Train GRU \(3 points, code\)}{chapter.3}% 36

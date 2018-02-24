@@ -62,7 +62,8 @@
 \newpage
 %----------------------
 \subproblem{c}{Implement model(15 points, code)}
-\noindent \textbf{Answer:}  See code: $\sim$\verb|/q1_window.py|.
+\noindent \textbf{Answer:}  \\ 
+See code: $\sim$\verb|/q1_window.py|. \\ And deliverable $\sim$\verb|/window_predictions.conll|
 \vskip3em
 %----------------------
 \subproblem{d}{Analyze the predictions (5 points, written)}
@@ -101,8 +102,10 @@ y': PER      & ORG       & LOC    & O  & O       & O  & O        & LOC    \\
 \subproblem{a}{Computational complexity (4 points, written)}
 \subsubproblem{i} {How many more (1 point)} 
 \noindent\textbf{Answer:} \\
+\indent RNN model has $(H \times H) - (2\omega \times D \times H)$ more parameters than window-based model. \\
 \subsubproblem{ii} {Complexity (3 point)} 
 \noindent\textbf{Answer:} \\
+\indent The un-simplified complexity is $O(T \times (D + ((D+H) \times H) + (H \times C + C)))$, ignore those minor ones, the complexity is  $O(T \times (D \times H + H \times H + H \times C)$
 \vskip3em
 %----------------------
 \subproblem{b}{$F_{1}$ score (2 points, written)}
@@ -115,19 +118,23 @@ y': PER      & ORG       & LOC    & O  & O       & O  & O        & LOC    \\
 
 
 \subproblem{c}{RNN cell (5 points, code)}
+\noindent \textbf{Answer:}  See code: $\sim$\verb|/q2_rnn_cell.py|.
 \vskip4em
 %----------------------
 \subproblem{d}{RNN model (8 points, code/written)}
 \subsubproblem{i} { Loss and Gradient Update (3 points, written)} 
 \noindent\textbf{Answer:} \\
 \subsubproblem{ii} { (5 points, code)} 
+\noindent \textbf{Answer:}  See code: $\sim$\verb|/q2_rnn.py|.
 \vskip4em
 %----------------------
 
-\subproblem{e}{More RNN model (12 points, code)}
+\subproblem{e}{Full RNN model (12 points, code)}
+\noindent \textbf{Answer:}  See code: $\sim$\verb|/q2_rnn.py|.
 \vskip4em
 
 \subproblem{e}{Train RNN model (3 points, code)}
+\noindent \textbf{Answer:}  See result file: $\sim$\verb|/rnn_predictions.conll|.
 \vskip4em
 
 \newpage
@@ -153,15 +160,39 @@ y': PER      & ORG       & LOC    & O  & O       & O  & O        & LOC    \\
 
 %----------------------
 \subproblem{c}{GRU cell (6 points, code)}
+\indent see code $\sim$\verb|/q3_gru_cell.py|
 \vskip5em
 %----------------------
-\subproblem{d}{Learn dynamics (6 points, code)}
-\vskip4em
+\subproblem{d}{Dynamic RNN (6 points, code)}
+\indent see code $\sim$\verb|/q3_gru.py| and next page plots (total 4)
+\newpage
+\begin{figure}[!htbp]\centering
+	\includegraphics[scale=0.9]{q3-noclip-rnn.png}
+	\label{figure:RNN no clip}
+	%\caption{RNN no clip}
+\end{figure}
+\begin{figure}[!htbp]\centering
+	\includegraphics[scale=0.9]{q3-clip-rnn.png}
+	\label{figure:RNN with clip}
+	%\caption{RNN no clip}
+\end{figure}
+\newpage
+\begin{figure}[!htbp]\centering
+	\includegraphics[scale=0.9]{q3-noclip-gru.png}
+	\label{figure:GRU no clip}
+	%\caption{RNN no clip}
+\end{figure}
+\begin{figure}[!htbp]\centering
+	\includegraphics[scale=0.9]{q3-clip-gru.png}
+	\label{figure:GRU with clip}
+	%\caption{RNN no clip}
+\end{figure}
+\newpage
 %----------------------
 
 \subproblem{e}{Analyze graphs (5 points, written)}
 \noindent \textbf{Answer:}  \\
-It's fine if GRU gradients are still below 5.0 without gradient clipping; just make conclusions based on what you see in your graphs. A few things to consider:
+\indent It's fine if GRU gradients are still below 5.0 without gradient clipping; just make conclusions based on what you see in your graphs. A few things to consider:
 
 - Are gradients increasing or decreasing for the GRU with and without gradient-clipping? Is this expected?
 
@@ -169,5 +200,5 @@ It's fine if GRU gradients are still below 5.0 without gradient clipping; just m
 \vskip4em
 %----------------------
 \subproblem{f}{Train GRU (3 points, code)}
-
+\noindent \textbf{Answer:}  See file: $\sim$\verb|/gru_predictions.conll|.
 \end{document}
