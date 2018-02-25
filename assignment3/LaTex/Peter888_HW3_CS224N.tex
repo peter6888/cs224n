@@ -111,7 +111,7 @@ y': PER      & ORG       & LOC    & O  & O       & O  & O        & LOC    \\
 \subproblem{b}{$F_{1}$ score (2 points, written)}
 \subsubproblem{i} {When CE cost and $F_{1}$ decreasing at same time (1 point)} 
 \noindent\textbf{Answer:} \\
-\indent 
+\indent Consider predicting tokens entity being all 'O's to predicting some tokens correct. Token accuracy will increase, that can lower the cross-entropy lost. But the model will have lower precision, and recall still the same.\\
 \subsubproblem{ii} {Why not $F_{1}$ (1 point)} 
 \noindent\textbf{Answer:} \\
 \indent F1 is not a convex function, make it hard to optimize. And F1 is a over-all-metric, make it hard to batch or parallelize.  
@@ -147,7 +147,7 @@ y': PER      & ORG       & LOC    & O  & O       & O  & O        & LOC    \\
 \indent Limitation 2. This RNN model doesn't group nearby tokens. Such as "Sixflags/PER Discovery/ORG Kingdom/LOC is/0 in/0 northern/0 California/LOC", but human can know the "Sixflags" "Discovery" and "Kingdom" should group together form a ORG name.
 \subsubproblem{ii} { Suggestions (3 points, written)} 
 \noindent \textbf{Answer:}  \\
-\indent  1. To fix the one way impact issue, we can use Bi-direction model like Bi-RNN
+\indent  1. To fix the one way impact issue, we can use Bi-direction model like Bi-RNN \\
 \indent 2. To fix the nearby token issue, we can use token-pair to nearby token group, in loss function or argument in the training data.
 \vskip4em
 
@@ -160,8 +160,32 @@ y': PER      & ORG       & LOC    & O  & O       & O  & O        & LOC    \\
 \subproblem{a}{ Modeling latching behavior (4 points, written)}
 \subsubproblem{i} {RNN cell values (1 point)}
 \noindent \textbf{Answer:} \\ \\
+\indent There are four $x,h^{t-1}$ value pairs: \\
+\indent \indent $x=0, h^{t-1}=0$, expect $h^{t}=\sigma(b_{h})=0$, thus $b_{h} \le 0$ \\
+\indent \indent $x=0, h^{t-1}=1$, expect $h^{t}=\sigma(U_{h} + b_{h})=0$, thus $U_{h} + b_{h}>0$ \\
+\indent \indent $x=1, h^{t-1}=0$, expect $h^{t}=\sigma(W_{h} + b_{h})=1$, thus $W_{h} + b_{h}>0$ \\
+\indent \indent $x=1, h^{t-1}=1$, expect $h^{t}=\sigma(W_{h} + U_{h} + b_{h})=1$, thus $W_{h} + U_{h} + b_{h}>0$ \\ \\
+\indent So, the values should be $b_{z} \le 0$, $U_{h} + b_{h}>0$ , and  $W_{h} + b_{h}>0$.  \\
+\indent One example could be $W_{h} = 1, U_{h} = 1$ and $b_{h} = -0.5$
 \subsubproblem{ii} {GRU cell values (3 points)}
 \noindent \textbf{Answer:} \\
+\indent Let $W_{r} = U_{r} = b_{r} = b_{z} = b_{h} = 0$, get new equations: \\
+\indent \indent $z^{(t)}=\sigma(x^{(t)}W_{z} + h^{(t-1)}U_{z})$\\
+\indent \indent $r^{(t)}=0$\\
+\indent \indent $\tilde{h}^{(t)}=tanh(x^{(t)}W_{h} + r^{t} \circ h^{(t-1)}U_{h})=tanh(x^{(t)}W_{h})$\\
+\indent \indent $h^{(t)}=z^{(t)} \circ  h^{(t-1)} + (1 - z^{(t)}) \circ \tilde{h}^{(t)} $ \\ \\
+\indent There are four $x,h^{t-1}$ value pairs \\
+\indent \indent $x=0, h^{t-1}=0$, expect $h^{t}=0$, \\
+\indent \indent \indent have $z^{(t)}=\sigma(0)=0$, $\tilde{h}^{(t)}=tanh(0)=0$, $h^{(t)}=0$ \\
+\indent \indent $x=0, h^{t-1}=1$, expect $h^{t}=1$, \\ 
+\indent \indent \indent have  $z^{(t)}=\sigma(U_{z})$, $\tilde{h}^{(t)}=tanh(0)=0$, $h^{(t)}=z^{(t)} \circ h^{t-1} = \sigma(U_{z}) = 1$ \\
+\indent \indent \indent $\to$ $U_{z} > 0$ \\
+\indent \indent $x=1, h^{t-1}=0$, expect $h^{t}=0$, \\
+\indent \indent \indent have  $z^{(t)}=\sigma(W_{z})$, $\tilde{h}^{(t)}=tanh(W_{h})$, $h^{(t)}=(1-z^{(t)}) \circ  \tilde{h}^{(t)} = 0$ \\
+\indent \indent \indent $\to$ $W_{z} > 0$ or $W_{h} \le 0$ \\
+\indent \indent $x=1, h^{t-1}=1$, expect $h^{t}=1$, \\
+\indent \indent \indent have $z^{(t)}=\sigma(W_{z} + U_{z})$, $\tilde{h}^{(t)}=tanh(W_{h})$, $h^{(t)}=z^{(t)} + (1-z^{(t)}) \circ  \tilde{h}^{(t)} = 1$ \\
+\indent \indent \indent $\to$ $W_{z} + U_{z} > 0$ or ($W_{z} + U_{z} \le 0$ and $W_{h} > 0$)
 \vskip4em
 
 %----------------------
