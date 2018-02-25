@@ -180,12 +180,18 @@ y': PER      & ORG       & LOC    & O  & O       & O  & O        & LOC    \\
 \indent \indent $x=0, h^{t-1}=1$, expect $h^{t}=1$, \\ 
 \indent \indent \indent have  $z^{(t)}=\sigma(U_{z})$, $\tilde{h}^{(t)}=tanh(0)=0$, $h^{(t)}=z^{(t)} \circ h^{t-1} = \sigma(U_{z}) = 1$ \\
 \indent \indent \indent $\to$ $U_{z} > 0$ \\
-\indent \indent $x=1, h^{t-1}=0$, expect $h^{t}=0$, \\
-\indent \indent \indent have  $z^{(t)}=\sigma(W_{z})$, $\tilde{h}^{(t)}=tanh(W_{h})$, $h^{(t)}=(1-z^{(t)}) \circ  \tilde{h}^{(t)} = 0$ \\
-\indent \indent \indent $\to$ $W_{z} > 0$ or $W_{h} \le 0$ \\
+\indent \indent $x=1, h^{t-1}=0$, expect $h^{t}=1$, \\
+\indent \indent \indent have  $z^{(t)}=\sigma(W_{z})$, $\tilde{h}^{(t)}=tanh(W_{h})$, $h^{(t)}=(1-z^{(t)}) \circ  \tilde{h}^{(t)} = 1$ \\
+\indent \indent \indent $\to$ $W_{z} \le 0$ and $W_{h} > 0$ \\
 \indent \indent $x=1, h^{t-1}=1$, expect $h^{t}=1$, \\
 \indent \indent \indent have $z^{(t)}=\sigma(W_{z} + U_{z})$, $\tilde{h}^{(t)}=tanh(W_{h})$, $h^{(t)}=z^{(t)} + (1-z^{(t)}) \circ  \tilde{h}^{(t)} = 1$ \\
-\indent \indent \indent $\to$ $W_{z} + U_{z} > 0$ or ($W_{z} + U_{z} \le 0$ and $W_{h} > 0$)
+\indent \indent \indent $\to$ $W_{z} + U_{z} > 0$ or $W_{z} + U_{z} \le 0$ \\
+\indent So, the values of $W_{z}, U_{z}, W_{h}, U_{h}$ should be \\
+\indent \indent \indent $U_{z} > 0$ \\
+\indent \indent \indent $W_{z} \le 0$ \\
+\indent \indent \indent $W_{h} > 0$ \\
+\indent \indent \indent $U_{h} \in \mathbb{R}$ \\
+\indent One example could be $U_{z} = 1$, $W_{z} = -1$, $W_{h} = 1$, $U_{h} = 0$ 
 \vskip4em
 
 %----------------------
@@ -194,6 +200,24 @@ y': PER      & ORG       & LOC    & O  & O       & O  & O        & LOC    \\
 \noindent \textbf{Answer:} \\ \\
 \subsubproblem{ii} {GRU cell values (3 points)}
 \noindent \textbf{Answer:} \\
+\indent Let $W_{r} = U_{r} = b_{z} = b_{h} = 0$, get new equations: \\
+\indent \indent $z^{(t)}=\sigma(x^{(t)}W_{z} + h^{(t-1)}U_{z})$\\
+\indent \indent $r^{(t)}=\sigma(b_{r})$\\
+\indent \indent $\tilde{h}^{(t)}=tanh(x^{(t)}W_{h} + r^{t} \circ h^{(t-1)}U_{h})$\\
+\indent \indent $h^{(t)}=z^{(t)} \circ  h^{(t-1)} + (1 - z^{(t)}) \circ \tilde{h}^{(t)} $ \\ \\
+\indent There are four $x,h^{t-1}$ value pairs \\
+\indent \indent $x=0, h^{t-1}=0$, expect $h^{t}=0$, \\
+\indent \indent \indent have $z^{(t)}=\sigma(0)=0$, $\tilde{h}^{(t)}=tanh(0)=0$, $h^{(t)}=0$ \\
+\indent \indent $x=1, h^{t-1}=1$, expect $h^{t}=1$, \\
+\indent \indent \indent have  $z^{(t)}=\sigma(W_{z})$, $\tilde{h}^{(t)}=tanh(W_{h})$, $h^{(t)}=(1-z^{(t)}) \circ  \tilde{h}^{(t)} = 1$ \\
+\indent \indent \indent $\to$ $W_{z} \le 0$ and $W_{h} > 0$ \\
+\indent \indent $x=0, h^{t-1}=1$, expect $h^{t}=1$, \\ 
+\indent \indent \indent have  $z^{(t)}=\sigma(U_{z})$, $\tilde{h}^{(t)}=tanh(r^{(t)} \circ U_{h})$, $h^{(t)}= \sigma(U_{z}) + (1-\sigma(U_{z})) \circ tanh(r^{(t)} \circ U_{h})= 1$ \\
+\indent \indent \indent $\to$ $U_{z} > 0$ or ($U_{z} \le 0$ and $b_{r} > 0$ and $U_{h} > 0$)\\
+\indent \indent $x=1, h^{t-1}=1$, expect $h^{t}=0$, \\
+\indent \indent \indent have $z^{(t)}=\sigma(W_{z} + U_{z})$, $\tilde{h}^{(t)}=tanh(W_{h} + r^{(t)} \circ U_{h})$, $h^{(t)}=z^{(t)} + (1-z^{(t)}) \circ  \tilde{h}^{(t)} = 0$ \\
+\indent \indent \indent $\to$ $W_{z} + U_{z} \le 0$ and $W_{h} + r^{(t)} \circ U_{h} = 0$ \\
+\indent One example could be $b_{r} = 1$,  $W_{z} = 0$, $U_{z} = 1$, $W_{h} = 1$, $U_{h} = -1$ 
 \indent 
 \vskip4em
 
@@ -231,11 +255,10 @@ y': PER      & ORG       & LOC    & O  & O       & O  & O        & LOC    \\
 
 \subproblem{e}{Analyze graphs (5 points, written)}
 \noindent \textbf{Answer:}  \\
-\indent It's fine if GRU gradients are still below 5.0 without gradient clipping; just make conclusions based on what you see in your graphs. A few things to consider:
-
-- Are gradients increasing or decreasing for the GRU with and without gradient-clipping? Is this expected?
-
-- Does loss improve or stay constant for the RNN vs. GRU? Does gradient-clipping affect the loss? Why might this be the case?
+\indent RNN model experience vanishing gradient. It's gradients to be small but the loss still high. But gradient clipping does not help, because that's the way to fix the exploding gradients issue. \\
+\indent GRU model's gradients decreasing with few of spikes (not great than the clipping value), and loss converge fast to small values. Clipping still not help here. Did extra experiment set clipping to smaller (1.0, 2.0 or 3.0), it helps a little by clipping the gradients. And even without clipping the gradient not exploding. \\
+\indent The gradient-clipping not really impact the loss too much in this case. Because not seen gradient exploding issue in both model. \\
+\indent GRU model is doing better on converge. Because it doesn't suffering from the gradient vanish issue like RNN model do.\\
 \vskip4em
 %----------------------
 \subproblem{f}{Train GRU (3 points, code)}
