@@ -111,8 +111,10 @@ y': PER      & ORG       & LOC    & O  & O       & O  & O        & LOC    \\
 \subproblem{b}{$F_{1}$ score (2 points, written)}
 \subsubproblem{i} {When CE cost and $F_{1}$ decreasing at same time (1 point)} 
 \noindent\textbf{Answer:} \\
+\indent 
 \subsubproblem{ii} {Why not $F_{1}$ (1 point)} 
 \noindent\textbf{Answer:} \\
+\indent F1 is not a convex function, make it hard to optimize. And F1 is a over-all-metric, make it hard to batch or parallelize.  
 
 \vskip4em
 
@@ -124,6 +126,7 @@ y': PER      & ORG       & LOC    & O  & O       & O  & O        & LOC    \\
 \subproblem{d}{RNN model (8 points, code/written)}
 \subsubproblem{i} { Loss and Gradient Update (3 points, written)} 
 \noindent\textbf{Answer:} \\
+\indent The loss also include those padded zeros. And will then impact the gradient and will propagated back and impact the learning of the weights. After apply the masking, the loss come with the padded zeros will be zero, thus don't impact the learning. 
 \subsubproblem{ii} { (5 points, code)} 
 \noindent \textbf{Answer:}  See code: $\sim$\verb|/q2_rnn.py|.
 \vskip4em
@@ -133,8 +136,19 @@ y': PER      & ORG       & LOC    & O  & O       & O  & O        & LOC    \\
 \noindent \textbf{Answer:}  See code: $\sim$\verb|/q2_rnn.py|.
 \vskip4em
 
-\subproblem{e}{Train RNN model (3 points, code)}
+\subproblem{f}{Train RNN model (3 points, code)}
 \noindent \textbf{Answer:}  See result file: $\sim$\verb|/rnn_predictions.conll|.
+\vskip4em
+
+\subproblem{g}{RNN's limit (6 points, written)}
+\subsubproblem{i} { RNN limitations (3 points, written)} 
+\noindent \textbf{Answer:}  \\
+\indent Limitation 1. RNN is just have forward impact when learning. It can't predict "Chenzhou" is a location, for sentence "Chenzhou/0 is/0 a/0 small/0 city/0", but according to the future information "city", it can predict it is a location.  \\
+\indent Limitation 2. This RNN model doesn't group nearby tokens. Such as "Sixflags/PER Discovery/ORG Kingdom/LOC is/0 in/0 northern/0 California/LOC", but human can know the "Sixflags" "Discovery" and "Kingdom" should group together form a ORG name.
+\subsubproblem{ii} { Suggestions (3 points, written)} 
+\noindent \textbf{Answer:}  \\
+\indent  1. To fix the one way impact issue, we can use Bi-direction model like Bi-RNN
+\indent 2. To fix the nearby token issue, we can use token-pair to nearby token group, in loss function or argument in the training data.
 \vskip4em
 
 \newpage
@@ -156,6 +170,7 @@ y': PER      & ORG       & LOC    & O  & O       & O  & O        & LOC    \\
 \noindent \textbf{Answer:} \\ \\
 \subsubproblem{ii} {GRU cell values (3 points)}
 \noindent \textbf{Answer:} \\
+\indent 
 \vskip4em
 
 %----------------------
