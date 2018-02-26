@@ -105,7 +105,7 @@ y': PER      & ORG       & LOC    & O  & O       & O  & O        & LOC    \\
 \indent RNN model has $(H \times H) - (2\omega \times D \times H)$ more parameters than window-based model. \\
 \subsubproblem{ii} {Complexity (3 point)} 
 \noindent\textbf{Answer:} \\
-\indent The un-simplified complexity is $O(T \times (D + ((D+H) \times H) + (H \times C + C)))$, ignore those minor ones, the complexity is  $O(T \times (D \times H + H \times H + H \times C)$
+\indent The complexity is $O(T \times (D + ((D+H) \times H) + (H \times C + C)))$, ignore those minor ones, the complexity is  $O(T \times (D \times H + H \times H + H \times C)$
 \vskip3em
 %----------------------
 \subproblem{b}{$F_{1}$ score (2 points, written)}
@@ -179,13 +179,13 @@ y': PER      & ORG       & LOC    & O  & O       & O  & O        & LOC    \\
 \indent \indent \indent have $z^{(t)}=\sigma(0)=0$, $\tilde{h}^{(t)}=tanh(0)=0$, $h^{(t)}=0$ \\
 \indent \indent $x=0, h^{t-1}=1$, expect $h^{t}=1$, \\ 
 \indent \indent \indent have  $z^{(t)}=\sigma(U_{z})$, $\tilde{h}^{(t)}=tanh(0)=0$, $h^{(t)}=z^{(t)} \circ h^{t-1} = \sigma(U_{z}) = 1$ \\
-\indent \indent \indent $\to$ $U_{z} > 0$ \\
+\indent \indent \indent $\Rightarrow$$U_{z} > 0$ \\
 \indent \indent $x=1, h^{t-1}=0$, expect $h^{t}=1$, \\
 \indent \indent \indent have  $z^{(t)}=\sigma(W_{z})$, $\tilde{h}^{(t)}=tanh(W_{h})$, $h^{(t)}=(1-z^{(t)}) \circ  \tilde{h}^{(t)} = 1$ \\
-\indent \indent \indent $\to$ $W_{z} \le 0$ and $W_{h} > 0$ \\
+\indent \indent \indent $\Rightarrow$$W_{z} \le 0$ and $W_{h} > 0$ \\
 \indent \indent $x=1, h^{t-1}=1$, expect $h^{t}=1$, \\
 \indent \indent \indent have $z^{(t)}=\sigma(W_{z} + U_{z})$, $\tilde{h}^{(t)}=tanh(W_{h})$, $h^{(t)}=z^{(t)} + (1-z^{(t)}) \circ  \tilde{h}^{(t)} = 1$ \\
-\indent \indent \indent $\to$ $W_{z} + U_{z} > 0$ or $W_{z} + U_{z} \le 0$ \\
+\indent \indent \indent $\Rightarrow$$W_{z} + U_{z} > 0$ or $W_{z} + U_{z} \le 0$ \\
 \indent So, the values of $W_{z}, U_{z}, W_{h}, U_{h}$ should be \\
 \indent \indent \indent $U_{z} > 0$ \\
 \indent \indent \indent $W_{z} \le 0$ \\
@@ -198,6 +198,20 @@ y': PER      & ORG       & LOC    & O  & O       & O  & O        & LOC    \\
 \subproblem{b}{Modeling toggling behavior (6 points, written)}
 \subsubproblem{i} {1D RNN (3 points)}
 \noindent \textbf{Answer:} \\ \\
+\indent Try to prove this 1D RNN can not replicate the behavior by list out the four requirement value pairs's conditions \\
+\indent There are four $x,h^{t-1}$ value pairs requirements\\
+\indent \indent $x=0, h^{t-1}=0$, expect $h^{t}=\sigma(b_{h})=0$, \\
+\indent \indent \indent this requires $b_{h} \le 0$ \\
+\indent \indent $x=0, h^{t-1}=1$, expect $h^{t}=\sigma(U_{h} + b_{h})=1$, \\ 
+\indent \indent \indent this requires $U_{h} + b_{h} > 0$\\
+\indent \indent $\Rightarrow$ $U_{h} > 0$\\
+\indent \indent $x=1, h^{t-1}=1$, expect $h^{t}=\sigma(W_{h} + b_{h})=1$, \\
+\indent \indent \indent this requires $W_{h} + b_{h} > 0$ \\
+\indent \indent $x=1, h^{t-1}=1$, expect $h^{t}=\sigma(W_{h} + U_{h} + b_{h})=0$, \\
+\indent \indent \indent this requires $W_{h} + U_{h} + b_{h} \le 0$ \\
+\indent \indent $\Rightarrow$ $U_{h} < 0$ \\
+\indent \indent $\Rightarrow$ $U_{h} \in \phi$ \\
+\indent No $U_{h}$ for 1D RNN can replicate the behavior. Thus proved the result.
 \subsubproblem{ii} {GRU cell values (3 points)}
 \noindent \textbf{Answer:} \\
 \indent Let $W_{r} = U_{r} = b_{z} = b_{h} = 0$, get new equations: \\
@@ -210,13 +224,13 @@ y': PER      & ORG       & LOC    & O  & O       & O  & O        & LOC    \\
 \indent \indent \indent have $z^{(t)}=\sigma(0)=0$, $\tilde{h}^{(t)}=tanh(0)=0$, $h^{(t)}=0$ \\
 \indent \indent $x=1, h^{t-1}=1$, expect $h^{t}=1$, \\
 \indent \indent \indent have  $z^{(t)}=\sigma(W_{z})$, $\tilde{h}^{(t)}=tanh(W_{h})$, $h^{(t)}=(1-z^{(t)}) \circ  \tilde{h}^{(t)} = 1$ \\
-\indent \indent \indent $\to$ $W_{z} \le 0$ and $W_{h} > 0$ \\
+\indent \indent \indent $\Rightarrow$$W_{z} \le 0$ and $W_{h} > 0$ \\
 \indent \indent $x=0, h^{t-1}=1$, expect $h^{t}=1$, \\ 
 \indent \indent \indent have  $z^{(t)}=\sigma(U_{z})$, $\tilde{h}^{(t)}=tanh(r^{(t)} \circ U_{h})$, $h^{(t)}= \sigma(U_{z}) + (1-\sigma(U_{z})) \circ tanh(r^{(t)} \circ U_{h})= 1$ \\
-\indent \indent \indent $\to$ $U_{z} > 0$ or ($U_{z} \le 0$ and $b_{r} > 0$ and $U_{h} > 0$)\\
+\indent \indent \indent $\Rightarrow$$U_{z} > 0$ or ($U_{z} \le 0$ and $b_{r} > 0$ and $U_{h} > 0$)\\
 \indent \indent $x=1, h^{t-1}=1$, expect $h^{t}=0$, \\
 \indent \indent \indent have $z^{(t)}=\sigma(W_{z} + U_{z})$, $\tilde{h}^{(t)}=tanh(W_{h} + r^{(t)} \circ U_{h})$, $h^{(t)}=z^{(t)} + (1-z^{(t)}) \circ  \tilde{h}^{(t)} = 0$ \\
-\indent \indent \indent $\to$ $W_{z} + U_{z} \le 0$ and $W_{h} + r^{(t)} \circ U_{h} = 0$ \\
+\indent \indent \indent $\Rightarrow$$W_{z} + U_{z} \le 0$ and $W_{h} + r^{(t)} \circ U_{h} = 0$ \\
 \indent One example could be $b_{r} = 1$,  $W_{z} = 0$, $U_{z} = 1$, $W_{h} = 1$, $U_{h} = -1$ 
 \indent 
 \vskip4em

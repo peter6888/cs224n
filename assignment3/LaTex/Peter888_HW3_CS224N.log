@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.5.23)  25 FEB 2018 10:51
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.5.23)  25 FEB 2018 21:35
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1802,57 +1802,52 @@ Underfull \hbox (badness 10000) in paragraph at lines 171--195
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 200--201
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 200--201
+Underfull \hbox (badness 10000) in paragraph at lines 200--215
 
  []
 
 [6
 
 ]
-Underfull \hbox (badness 10000) in paragraph at lines 202--222
+Underfull \hbox (badness 10000) in paragraph at lines 216--236
 
  []
 
 [7] <q3-noclip-rnn.png, id=209, 462.528pt x 346.896pt>
 File: q3-noclip-rnn.png Graphic file (type png)
  <use q3-noclip-rnn.png>
-Package pdftex.def Info: q3-noclip-rnn.png used on input line 233.
+Package pdftex.def Info: q3-noclip-rnn.png used on input line 247.
 (pdftex.def)             Requested size: 416.27133pt x 312.2035pt.
 
 <q3-clip-rnn.png, id=211, 462.528pt x 346.896pt>
 File: q3-clip-rnn.png Graphic file (type png)
  <use q3-clip-rnn.png>
-Package pdftex.def Info: q3-clip-rnn.png used on input line 238.
+Package pdftex.def Info: q3-clip-rnn.png used on input line 252.
 (pdftex.def)             Requested size: 416.27133pt x 312.2035pt.
  [8 <./q3-noclip-rnn.png> <./q3-clip-rnn.png>]
 <q3-noclip-gru.png, id=218, 462.528pt x 346.896pt>
 File: q3-noclip-gru.png Graphic file (type png)
  <use q3-noclip-gru.png>
-Package pdftex.def Info: q3-noclip-gru.png used on input line 244.
+Package pdftex.def Info: q3-noclip-gru.png used on input line 258.
 (pdftex.def)             Requested size: 416.27133pt x 312.2035pt.
 
 <../q3-clip-gru.png, id=219, 462.528pt x 346.896pt>
 File: ../q3-clip-gru.png Graphic file (type png)
  <use ../q3-clip-gru.png>
-Package pdftex.def Info: ../q3-clip-gru.png used on input line 249.
+Package pdftex.def Info: ../q3-clip-gru.png used on input line 263.
 (pdftex.def)             Requested size: 416.27133pt x 312.2035pt.
 
 [9 <./q3-noclip-gru.png> <../q3-clip-gru.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 257--262
+Underfull \hbox (badness 10000) in paragraph at lines 271--276
 
  []
 
 [10]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 266.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 266.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 280.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 280.
  (./Peter888_HW3_CS224N.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 266.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 266.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 280.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 280.
 Package rerunfilecheck Info: File `Peter888_HW3_CS224N.out' has not changed.
 (rerunfilecheck)             Checksum: F622BEE4F76FDAFEF502814E8FC54EAB;3601.
  )
@@ -1863,7 +1858,7 @@ Package rerunfilecheck Info: File `Peter888_HW3_CS224N.out' has not changed.
 Here is how much of TeX's memory you used:
  27375 strings out of 492995
  479490 string characters out of 6132704
- 632072 words of memory out of 5000000
+ 634072 words of memory out of 5000000
  30229 multiletter control sequences out of 15000+600000
  52108 words of font info for 147 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
@@ -1884,7 +1879,7 @@ ve/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/
 017/texmf-dist/fonts/type1/public/mathabx-type1/matha10.pfb></usr/local/texlive
 /2017/texmf-dist/fonts/type1/public/mathabx-type1/matha7.pfb></usr/local/texliv
 e/2017/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on Peter888_HW3_CS224N.pdf (10 pages, 253478 bytes).
+Output written on Peter888_HW3_CS224N.pdf (10 pages, 254418 bytes).
 PDF statistics:
  294 PDF objects out of 1000 (max. 8388607)
  256 compressed objects within 3 object streams
