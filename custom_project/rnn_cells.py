@@ -19,6 +19,7 @@ def test_grucell():
         sess.run(tf.global_variables_initializer())
         print(sess.run((output_of_cell, hidden_state), feed_dict={input_data:inputs}))
 
+
 def test_lstmcell():
     lstm_cell = tf.nn.rnn_cell.LSTMCell(hidden_size)
     initial_state = lstm_cell.zero_state(batch_size, tf.float32)
@@ -34,6 +35,8 @@ def test_lstmcell():
         print(states_cell[0])
         print("hidden cell of LSTM----")
         print(states_cell[1])
+        print("expect (True) output equals hidden cell:")
+        print(np.array_equal(o_cell, states_cell[1]))
 
 def test_lstmcell_concated():
     '''
