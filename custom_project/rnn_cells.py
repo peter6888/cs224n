@@ -7,6 +7,7 @@ import numpy as np
 batch_size = 5
 input_size = 10
 hidden_size = 3
+sequence_size = 4
 input_data = tf.placeholder(tf.float32, [batch_size, input_size])
 def test_grucell():
     cell = tf.nn.rnn_cell.GRUCell(hidden_size)
@@ -37,6 +38,16 @@ def test_lstmcell():
         print(states_cell[1])
         print("expect (True) output equals hidden cell:")
         print(np.array_equal(o_cell, states_cell[1]))
+
+def test_bidirectional_rnn():
+    cell_fw = tf.nn.rnn_cell.GRUCell(hidden_size)
+    cell_bw = tf.nn.rnn_cell.GRUCell(hidden_size)
+    (outputs_fw, outputs_bw), (fw_state, bw_state) = tf.nn.bidirectional_dynamic_rnn(cell_fw, cell_bw, np.random.randn(batch_size, sequence_size, input_size), \
+                                                   initial_state_fw=cell_fw.zero_state(batch_size, dtype=tf.float64), \
+                                                   initial_state_bw=cell_bw.zero_state(batch_size, dtype=tf.float64))
+    print("outputs_fw.shape:{}, fw_state.shape:{}, bw_state.shape:{}".format(outputs_fw.get_shape(), fw_state.get_shape(), bw_state.get_shape()))
+    state_concat = tf.concat([fw_state, bw_state], axis=1)
+    print("state_concat.shape:{}".format(state_concat.get_shape()))
 
 def test_lstmcell_concated():
     '''
@@ -113,3 +124,5 @@ states cell of LSTM----
  [-0.1871059   0.07549004  0.5400781  -0.11914554  0.03161938  0.20328507]
  [ 0.18576448  0.4512465   0.2278376   0.08281051  0.33082792  0.12093458]]
 '''
+
+test_bidirectional_rnn()
