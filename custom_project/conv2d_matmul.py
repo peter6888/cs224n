@@ -18,13 +18,17 @@ def n_matmul():
     attn_size = 2
     vec_size = 4
 
-    W = tf.constant(np.random.randn(1, 1, attn_size, vec_size), dtype=tf.float32)
-    h = tf.constant(np.random.randn(batch_size, attn_len, 1, attn_size), dtype=tf.float32)
+    W_original = tf.constant(np.random.randn(attn_size, vec_size), dtype=tf.float32)
+    h_original = tf.constant(np.random.randn(batch_size, attn_len, attn_size), dtype=tf.float32)
+    W = tf.expand_dims(tf.expand_dims(W_original, 0), 0)
+    h = tf.expand_dims(h_original, 2)
     v = nn_ops.conv2d(h, W, [1, 1, 1, 1], "SAME")
 
     W_reshape = tf.reshape(W, shape=(attn_size, vec_size))
     h_reshape = tf.reshape(h[-1,:,:,:], shape=(attn_len, attn_size))
     v_reshape = tf.matmul(h_reshape, W_reshape)
+    
+    h_dot_W = tf.einsum('ijk,kl->ijl', h_original, W_original)
 
     with tf.Session() as sess:
         sess.run(tf.global_variables_initializer())
@@ -33,9 +37,12 @@ def n_matmul():
         print(result.shape)
         print("h shape:{}".format(h_.shape))
         print("W shape:{}".format(W_.shape))
-        r_1 = sess.run(v_reshape)
+        r_1, r_2 = sess.run([v_reshape, h_dot_W])
         print(r_1)
         print(r_1.shape)
+        print("tf.einsum('ijk,kl->ijl')")
+        print(r_2)
+
 
 if __name__ == "__main__":
     n_matmul()

@@ -48,6 +48,7 @@ def test_bidirectional_rnn():
     print("outputs_fw.shape:{}, fw_state.shape:{}, bw_state.shape:{}".format(outputs_fw.get_shape(), fw_state.get_shape(), bw_state.get_shape()))
     state_concat = tf.concat([fw_state, bw_state], axis=1)
     print("state_concat.shape:{}".format(state_concat.get_shape()))
+    print("shape after sum over sequence:{}".format(tf.reduce_sum(outputs_bw, axis=1))
 
 def test_lstmcell_concated():
     '''
