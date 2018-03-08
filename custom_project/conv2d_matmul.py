@@ -1,6 +1,11 @@
 import tensorflow as tf
 from tensorflow.python.ops import nn_ops
 import numpy as np
+
+batch_size = 5
+attn_len = 3
+attn_size = 2
+vec_size = 4
 def n_matmul():
     '''
     This function to prove that conv2d(h, W, [1,1,1,1], "SAME") can use for
@@ -13,11 +18,6 @@ def n_matmul():
         and expand h to shape (batch_size, v_length, 1, vec_size)
         then call conv2d
     '''
-    batch_size = 5
-    attn_len = 3
-    attn_size = 2
-    vec_size = 4
-
     W_original = tf.constant(np.random.randn(attn_size, vec_size), dtype=tf.float32)
     h_original = tf.constant(np.random.randn(batch_size, attn_len, attn_size), dtype=tf.float32)
     W = tf.expand_dims(tf.expand_dims(W_original, 0), 0)
@@ -27,7 +27,7 @@ def n_matmul():
     W_reshape = tf.reshape(W, shape=(attn_size, vec_size))
     h_reshape = tf.reshape(h[-1,:,:,:], shape=(attn_len, attn_size))
     v_reshape = tf.matmul(h_reshape, W_reshape)
-    
+
     h_dot_W = tf.einsum('ijk,kl->ijl', h_original, W_original)
 
     with tf.Session() as sess:
@@ -44,6 +44,21 @@ def n_matmul():
         print(r_2)
 
 
+def attension_sum():
+    encoded_states_expanded = np.random.randn(batch_size, attn_len, 1, attn_size)
+    atten_vector = np.random.randn(batch_size, attn_len)
+    context = np.einsum('ijkl,ij->ikl', encoded_states_expanded, atten_vector)
+    # Equals below
+    #att_vector_ex = np.expand_dims(np.expand_dims(atten_vector, axis=1), axis=1)
+
+    #context_2 = np.sum(encoded_states_expanded * att_vector_ex, [2,3])
+    #ValueError: operands could not be broadcast together with shapes (5,3,1,2) (5,1,1,3)
+
+    #context_2 = np.sum(encoded_states_expanded * att_vector_ex, [2,3])
+    print(context.shape)
+    #print(context_2.shape)
+
 if __name__ == "__main__":
     n_matmul()
+    attension_sum()
 
