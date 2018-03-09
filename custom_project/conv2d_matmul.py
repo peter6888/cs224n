@@ -58,7 +58,19 @@ def attension_sum():
     print(context.shape)
     #print(context_2.shape)
 
+def cnn_layer():
+    input_width = 64
+    input_height = 64
+    in_channels = 3
+    inputs = tf.Variable(tf.random_normal([in_channels, input_width, input_height, 1]))
+    out = tf.layers.conv2d(inputs, filters=1, kernel_size=[8,8], padding="SAME", activation=tf.nn.relu)
+    with tf.Session() as sess:
+        sess.run(tf.global_variables_initializer())
+        o = sess.run(out)
+        print(len(o[0]), len(o[1]))
+
 if __name__ == "__main__":
     n_matmul()
     attension_sum()
+    cnn_layer()
 
