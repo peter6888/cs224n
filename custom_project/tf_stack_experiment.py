@@ -24,6 +24,20 @@ def tfstack_from_tensorlist():
 
     return
 
+def tfstack_from_tensor():
+    '''
+    Experiement how to insert zero for a Tensor with shape (15, 256) to (16, 256)
+    Returns:
+    '''
+    old_tensor = tf.random_normal(shape=[15, 256])
+    zero_tensor = tf.zeros(shape=[1, old_tensor.get_shape().as_list()[1]])
+    new_tensor = tf.concat([zero_tensor, old_tensor], axis=0)
+    with tf.Session() as sess:
+        sess.run(tf.global_variables_initializer())
+        nt = sess.run(new_tensor)
+        print(nt[0,:])
+    return
+
 def tfstack_from_emptylist():
     tensorlist = []
     r = tf.stack(tensorlist)
@@ -42,6 +56,7 @@ def tfstack_from_none_in_list():
     print(r)
 
 if __name__=="__main__":
+    tfstack_from_tensor()
     tfstack_from_tensorlist()
     tfstack_from_emptylist()
     #tfstack_from_none()
