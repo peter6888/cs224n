@@ -22,12 +22,12 @@ Traceback (most recent call last):
     raise ValueError()
 ValueError
     '''
-    #result = tf.einsum("bi,bTi->bi", rank2state, rank3states)
+    #result = tf.einsum("bi,bTi->bT", rank2state, rank3states)
     '''
     math_ops.reduce_sum(decoder_state * encoder_states_dot_W, [2, 3])
     '''
     rank2state = tf.expand_dims(rank2state, axis=1)
-    result = math_ops.reduce_sum(rank2state * rank3states, axis=1)
+    result = math_ops.reduce_sum(rank2state * rank3states, axis=-1)
 
     with tf.Session() as sess:
         sess.run(tf.global_variables_initializer())
