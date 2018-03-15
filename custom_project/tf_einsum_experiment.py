@@ -39,5 +39,37 @@ ValueError
         print("result")
         print(_result)
 
+def rank2and3_to_rank3():
+    batch_size = 2
+    seq_length = 3
+    hidden_vector_size = 4
+
+    rank2matrix = tf.random_normal(shape=[hidden_vector_size, hidden_vector_size])
+    rank3states = tf.random_normal(shape=[batch_size, seq_length, hidden_vector_size])
+
+    #encoder_states_dot_W = np.einsum("ij,bTj->bTi", _W, _states)
+    tf_result = tf.einsum("ij,btj->btj", rank2matrix, rank3states)
+    print(tf_result.get_shape())
+    rank2matrix_expanded = tf.expand_dims(tf.expand_dims(rank2matrix, axis=0), axis=0) #new shape [1, 1, hidden_vector_size, hidden_vector_size]
+    rank3states_expanded = tf.expand_dims(rank3states, axis=2) #new shape [batch_size, seq_length, 1, hidden_vector_size]
+    result = tf.reduce_sum(rank2matrix_expanded * rank3states_expanded, axis=2) #output shape [batch_size, seq_length, hidden_vector_size]
+    print("result.shape")
+    print(result.get_shape())
+
+    with tf.Session() as sess:
+        sess.run(tf.global_variables_initializer())
+        _tfresult, _result, _mat, _states = sess.run([tf_result, result, rank2matrix, rank3states])
+        print("matrix:")
+        print(_mat)
+        print("states:")
+        print(_states)
+        print("result:")
+        print(_result)
+        print("result fro tf:")
+        print(_tfresult)
+
+
+
 if __name__ == "__main__":
     rank3_mul()
+    rank2and3_to_rank3()
