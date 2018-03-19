@@ -33,6 +33,19 @@ def generate_data(counts, size=3):
 
     return ret
 
+def vector_compare_concat(v_a, v_b):
+    '''
+    return the compare vector which defined by z(v_a,v_b) = tf.concat(v_a, v_b, v_a - v_b, v_a * v_b)
+    Args:
+        v_a: the left vector, shape [batch_size, vector_size]
+        v_b: the right vector, shape [batch_size, vector_size]
+
+    Returns:
+        z_a_b: the compare vector, shape [batch_size, vector_size]
+    '''
+    z_a_b = tf.concat([v_a, v_b, v_a - v_b, v_a * v_b], axis=1)
+    return z_a_b
+
 def divide_data(inputs):
     '''
     divide data to train, validation and test sets
@@ -54,5 +67,11 @@ if __name__ == "__main__":
     l = generate_data(100)
     dict_l = divide_data(l)
     print(len(dict_l["train"]),len(dict_l["val"]), len(dict_l["test"]))
+    a, b, c = zip(*dict_l["test"])
+    tensor_a = tf.placeholder(dtype=tf.float32)
+    tensor_b = tf.placeholder(dtype=tf.float32)
+    z = vector_compare_concat(tensor_a, tensor_b)
     with tf.Session() as sess:
         sess.run(tf.global_variables_initializer())
+        _z = sess.run(z, feed_dict={tensor_a: a, tensor_b: b})
+        print(_z.shape) # output shape [batch_size, 4 * vector_size]
