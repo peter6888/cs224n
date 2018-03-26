@@ -5,6 +5,9 @@ Data have two group of vectors.
     2) group A vectors have larger values on one index, say 1
     3) group B vectors have larger values on another index, say 2
     4) The other index are relative small random data
+    Examples:
+        [100, 0.1, 0.1] in group A
+        [0.1, 100, 0.1] in group B
 
 Task, given two vectors, your model could tell if they are in same group
 '''
