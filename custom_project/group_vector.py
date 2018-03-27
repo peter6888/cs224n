@@ -44,10 +44,33 @@ def vector_compare_concat(v_a, v_b):
         v_b: the right vector, shape [batch_size, vector_size]
 
     Returns:
-        z_a_b: the compare vector, shape [batch_size, vector_size]
+        z_a_b: the compare vector, shape [batch_size, 4 * vector_size]
     '''
     z_a_b = tf.concat([v_a, v_b, v_a - v_b, v_a * v_b], axis=1)
     return z_a_b
+
+def pred_op(v_z):
+    '''
+    Predict based on the concatenated compare vector
+    Args:
+        v_z: the concatenated compare vector, shape [batch_size, 4 * vector_size]
+
+    Returns: Distribution possibility [batch_size, 2], a binary classification
+    '''
+    dense_layer = tf.layers.dense(inputs=v_z, units=2, kernel_initializer=tf.contrib.layers.xavier_initializer())
+    return tf.nn.softmax(dense_layer)
+
+def loss_op(pred, y):
+    '''
+    Args:
+        pred: the predicted distribution, shape [batch_size, vector_size]
+        y: [batch_size, 2], one-hot vector for true label, [1,0] - false, [0,1] - true
+    Returns: loss
+    '''
+    loss = tf.losses.sigmoid_cross_entropy(y, pred)
+    if y is not None: # Train
+        return loss
+    return loss
 
 def divide_data(inputs):
     '''
@@ -71,10 +94,12 @@ if __name__ == "__main__":
     dict_l = divide_data(l)
     print(len(dict_l["train"]),len(dict_l["val"]), len(dict_l["test"]))
     a, b, c = zip(*dict_l["test"])
-    tensor_a = tf.placeholder(dtype=tf.float32)
-    tensor_b = tf.placeholder(dtype=tf.float32)
-    z = vector_compare_concat(tensor_a, tensor_b)
+    vector_size = 3
+    tensor_a = tf.placeholder(shape=[None, vector_size], dtype=tf.float32)
+    tensor_b = tf.placeholder(shape=[None, vector_size], dtype=tf.float32)
+    pred = pred_op(vector_compare_concat(tensor_a, tensor_b))
     with tf.Session() as sess:
         sess.run(tf.global_variables_initializer())
-        _z = sess.run(z, feed_dict={tensor_a: a, tensor_b: b})
-        print(_z.shape) # output shape [batch_size, 4 * vector_size]
+        _pred = sess.run(pred, feed_dict={tensor_a: a, tensor_b: b})
+        print(_pred.shape) # output shape [batch_size, 2] # binary classification
+        print(_pred)
