@@ -17,6 +17,7 @@ import numpy as np
 
 lr = 0.003
 vector_size = 3
+batch_size = 200
 
 def generate_data(counts, size=3):
     ret = []
@@ -61,7 +62,7 @@ def pred_op(v_z):
 
     Returns: Distribution possibility [batch_size, 2], a binary classification
     '''
-    hidden_layer =  tf.layers.dense(inputs=v_z, units=vector_size, activation=tf.nn.relu, kernel_initializer=tf.contrib.layers.xavier_initializer())
+    hidden_layer =  tf.layers.dense(inputs=v_z, units=2 * vector_size, activation=tf.nn.relu, kernel_initializer=tf.contrib.layers.xavier_initializer())
     pred = tf.layers.dense(inputs=hidden_layer, units=2, activation=tf.nn.relu, kernel_initializer=tf.contrib.layers.xavier_initializer())
     return pred
 
@@ -99,7 +100,7 @@ def divide_data(inputs):
     return ret
 
 if __name__ == "__main__":
-    l = generate_data(5000)
+    l = generate_data(1000)
     dict_l = divide_data(l)
     print(len(dict_l["train"]),len(dict_l["val"]), len(dict_l["test"]))
 
@@ -116,7 +117,8 @@ if __name__ == "__main__":
         for i in range(10000):
             np.random.shuffle(train_data)
             a, b, c = zip(* train_data)
-            _pred, _loss, _ = sess.run([pred, loss, train], feed_dict={tensor_a: a, tensor_b: b, tensor_c: c})
+            for j in range(len(a)//batch_size):
+                _pred, _loss, _ = sess.run([pred, loss, train], feed_dict={tensor_a: a[j*batch_size:(j+1)*batch_size], tensor_b: b[j*batch_size:(j+1)*batch_size], tensor_c: c[j*batch_size:(j+1)*batch_size]})
             #print(_pred.shape) # output shape [batch_size, 2] # binary classification
             #print(_pred)
             if i%1000 == 0:
@@ -126,7 +128,7 @@ if __name__ == "__main__":
                     val_a, val_b, val_y = zip(*val_data)
                     _c = sess.run(tf.nn.softmax(pred), feed_dict={tensor_a: val_a, tensor_b: val_b})
                     y_hat = np.argmax(_c, axis=1)
-                    print(np.sum(y_hat==np.array(val_y)))
+                    print(np.sum(y_hat==np.array(val_y)) / len(val_y))
                     #print(y_hat.shape)
                     #print(len(val_y))
 '''
